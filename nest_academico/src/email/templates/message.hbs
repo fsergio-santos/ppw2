@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Validação de Conta</title>
+  </head>
+  <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px;">
+      <tr>
+        <td style="text-align: center;">
+          <h2 style="color: #333;">Olá, {{name}}!</h2>
+          <p style="color: #555;">Recebemos uma solicitação para validar sua conta.</p>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <p style="color: #555;">
+            <strong>Email:</strong> {{email}}<br/>
+            <strong>Token:</strong> <span style="background-color: #eee; padding: 4px 8px; border-radius: 4px;">{{token}}</span>
+          </p>
+
+          <p style="color: #555;">Para prosseguir, clique no botão abaixo:</p>
+
+          <div style="text-align: center; margin: 20px 0;">
+            <a href="{{link}}" style="display: inline-block; background-color: #007BFF; color: white; text-decoration: none; padding: 12px 20px; border-radius: 5px;">
+              Confirmar agora
+            </a>
+          </div>
+
+          <p style="color: #777; font-size: 14px;">
+            Se você não solicitou essa ação, apenas ignore este e-mail.
+          </p>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="text-align: center; color: #aaa; font-size: 12px; padding-top: 20px;">
+          &copy; {{year}} Sua Empresa. Todos os direitos reservados.
+        </td>
+      </tr>
+    </table>
+
+  </body>
+</html>

@@ -1,0 +1,265 @@
+.table {
+  font-size: 1rem;
+  color: #212529;
+  background-color: #fff;
+  border-color: #9a9c9e;
+  width: 100%;
+  margin-bottom: 1rem;
+  vertical-align: top;
+}
+
+.table > tbody {
+  vertical-align: inherit;
+  line-height: 1;
+}
+
+.table > thead {
+  font-size: 1.1rem;
+  vertical-align: bottom;
+}
+
+.table > tbody > tr:active {
+  background-color: rgba(33, 37, 41, 0.1);
+  color: #212529;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: rgba(33, 37, 41, 0.05);
+  color: #212529;
+}
+
+.table-hover > tbody > tr:hover {
+  background-color: rgba(33, 37, 41, 0.075);
+  color: #212529;
+}
+
+.table-bordered > :not(caption) > * {
+  border-width: 1px 0;
+}
+
+.table-bordered > :not(caption) > * > * {
+  border-width: 0 1px;
+}
+
+.table-borderless > :not(caption) > * > * {
+  border-bottom-width: 0;
+}
+.table-borderless > :not(:first-child) {
+  border-top-width: 0;
+}
+
+.app-tabela {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.app-cabecalho-tabela {
+  font-weight: bold;
+  text-align: center;
+  background-color: #f2f2f2;
+}
+
+.app-coluna-detalhe-imagem {
+  text-align: center;
+  font-size: 1em;
+  vertical-align: middle;
+}
+
+.app-coluna-detalhe-centro {
+  text-align: center;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.records {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.records .input-search {
+  margin: 10px 0;
+  font-size: 18px;
+  width: 100%;
+  padding: 8px 12px;
+  box-sizing: border-box;
+}
+
+/* .records label {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.records select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.records select:hover {
+  border-color: #888;
+}
+
+.records select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+} */
+
+/* estilo para o componente SearchBar*/
+.select-records {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.select-records .input-search {
+  margin: 20px 0;
+  font-size: 20px;
+}
+
+.select-records label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.select-records select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.select-records select:hover {
+  border-color: #888;
+}
+
+.select-records select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.container_pagination {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px 0;
+  align-items: center;
+}
+
+.app-label-pagination {
+  font-size: 17px;
+  font-weight: 600;
+  color: rgb(0, 0, 0);
+}
+
+.pagination-button {
+  padding: 8px 15px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 1rem;
+  color: #333;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.pagination-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.no-items-message {
+  text-align: center;
+  color: #666;
+  padding: 20px;
+  font-style: italic;
+}
+
+.modal-select-button {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  margin-top: 0;
+}
+
+.badge-table {
+  padding: 0 0.75em;
+  font-weight: 700;
+  color: var(--text-white);
+  border-radius: 0.375rem;
+  display: inline-block;
+  align-items: center;
+  text-align: center;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  font-size: 1em;
+}
+
+@media only screen and (max-width: 800px) {
+  #no_more_table table,
+  #no_more_table thead,
+  #no_more_table tbody,
+  #no_more_table th,
+  #no_more_table td,
+  #no_more_table tr {
+    display: block;
+  }
+
+  #no_more_table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  #no_more_table tr {
+    border: 1px solid #ccc;
+  }
+
+  #no_more_table td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    white-space: normal;
+    text-align: left;
+  }
+
+  #no_more_table td:before {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+  }
+
+  #no_more_table td:before {
+    content: attr(data-label);
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+    color: #f2f2f2;
+  }
+}

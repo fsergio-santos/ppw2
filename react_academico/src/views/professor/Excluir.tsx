@@ -1,0 +1,229 @@
+import { useEffect, type MouseEvent } from 'react';
+import * as FaIcons from 'react-icons/fa';
+import * as MdIcons from 'react-icons/md';
+
+import Loading from '../../components/loading/Loading';
+
+import Form from '../../components/form/Form';
+import './usuario.css';
+
+import Box from '../../components/box/Box';
+
+import { useParams } from 'react-router-dom';
+import Button from '../../components/button/Button';
+import FotoConsulta from '../../components/image/FotoConsulta';
+import Input from '../../components/input/Input';
+import LinkButton from '../../components/LinkButton/LinkButton';
+import useMessageDialog from '../../components/modal/Modal';
+import { useAlert } from '../../context/AlertContexto';
+import { useValidarDadosProfessor } from '../../rules/ProfessorValidationRules';
+import useDeleteProfessor from '../../service/connection/professor/DeleteProfessor';
+import useGetProfessor from '../../service/connection/professor/GetProfessor';
+import {
+  BUTTON_SIZE,
+  BUTTON_SIZE_SHOW_MESSAGE,
+  DANGER,
+  DEFAULT_IMAGEM,
+  MESSAGE_CANCEL_FORM,
+  MESSAGE_DELETE_FORM,
+  PROFESSOR,
+  PROFESSOR_SHOW,
+  SERVIDOR_POST_IMAGEM,
+  TIME,
+  WARNING,
+} from '../../service/constant/Constantes';
+import { ROTA } from '../../service/constant/Url';
+import { MENSAGEM_SISTEMA } from '../../service/errors/MensagemSistema';
+import { camposObrigatoriosDoProfessor, mensagensCamposObrigatoriosDoProfessor } from '../../type/Professor';
+
+const navegacaoProfessor = {
+  titulo: PROFESSOR_SHOW,
+  descricao: `Excluir o ${PROFESSOR_SHOW} do sistema`,
+  iconTitulo: <FaIcons.FaUserEdit size={BUTTON_SIZE_SHOW_MESSAGE} />,
+  iconReturn: <MdIcons.MdList size={BUTTON_SIZE_SHOW_MESSAGE} />,
+  toReturn: PROFESSOR_SHOW,
+  toUrl: ROTA.PROFESSOR.LISTAR,
+};
+
+const Excluir = () => {
+  const { id } = useParams();
+  const { loading, showAlert } = useAlert();
+  const { model, setModel, errors, setServerErrors, validarCamposVazios } = useValidarDadosProfessor();
+  const { findProfessorById, errorGetProfessor } = useGetProfessor();
+  const { deleteProfessorById, errorDeleteProfessor } = useDeleteProfessor();
+  const { MessageDialog } = useMessageDialog();
+
+  useEffect(() => {
+    async function getProfessor() {
+      if (id) {
+        const data = await findProfessorById(id);
+        if (data && data.dados) {
+          const errosValidacao = validarCamposVazios(
+            data.dados,
+            camposObrigatoriosDoProfessor,
+            mensagensCamposObrigatoriosDoProfessor,
+          );
+          if (errosValidacao) {
+            setServerErrors(errosValidacao);
+          }
+          setModel(data.dados);
+        }
+      }
+    }
+    getProfessor();
+  }, [id]);
+
+  useEffect(() => {
+    setServerErrors(errorGetProfessor);
+    showAlert(MENSAGEM_SISTEMA.PROFESSOR.DANGER, DANGER, TIME);
+  }, [errorGetProfessor]);
+
+  const onSubmitData = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    await deleteProfessorById(model.idProfessor);
+  };
+
+  useEffect(() => {
+    setServerErrors(errorDeleteProfessor);
+  }, [errorDeleteProfessor]);
+
+  return (
+    <Form navegacao={navegacaoProfessor}>
+      {loading ? <Loading /> : null}
+      <div className="container-usuario">
+        <Box>
+          <div className="janela">
+            <div className="foto avatar-container ">
+              <FotoConsulta
+                foto={model.foto}
+                DEFAULT_IMAGEM={DEFAULT_IMAGEM}
+                SERVIDOR_POST_IMAGEM={SERVIDOR_POST_IMAGEM}
+              />
+              <MessageDialog
+                title={`Exclusão do ${PROFESSOR}`}
+                body="Tem certeza que deseja excluir o registro "
+                label="Confirmar"
+                onSave={onSubmitData}
+                variant={WARNING}
+                iconConfirm={<MdIcons.MdBrowserUpdated />}
+                iconCancel={<MdIcons.MdCancel />}
+              />
+            </div>
+
+            <div className="form-profile">
+              <div className="form">
+                <form>
+                  <div className="cadastro mt-3 mb-3">
+                    <div className="form-cadastro-usuario">
+                      <Input
+                        id="codUsuario"
+                        label="Código do Usuário:"
+                        type="text"
+                        value={model.codUsuario}
+                        error={errors.codUsuario}
+                        errorMensagem={errors.codUsuarioMensagem}
+                        readonly={true}
+                      />
+                      <Input
+                        id="nomeUsuario"
+                        label="Nome:"
+                        Icon={FaIcons.FaUserCircle}
+                        type="text"
+                        value={model.nomeUsuario}
+                        error={errors.nomeUsuario}
+                        errorMensagem={errors.nomeUsuarioMensagem}
+                        readonly={true}
+                      />
+                      <Input
+                        id="email"
+                        label="E-mail:"
+                        Icon={FaIcons.FaAt}
+                        type="text"
+                        value={model.email}
+                        error={errors.email}
+                        errorMensagem={errors.emailMensagem}
+                        readonly={true}
+                      />
+                      <Input
+                        id="senha"
+                        label="Senha:"
+                        Icon={MdIcons.MdEnhancedEncryption}
+                        type="password"
+                        value={model.senha}
+                        error={errors.senha}
+                        errorMensagem={errors.senhaMensagem}
+                        readonly={true}
+                      />
+                      <Input
+                        id="confirmSenha"
+                        label="Confirme a Senha:"
+                        Icon={MdIcons.MdEnhancedEncryption}
+                        type="password"
+                        value={model.confirmSenha}
+                        error={errors.confirmSenha}
+                        errorMensagem={errors.confirmSenhaMensagem}
+                        readonly={true}
+                      />
+                      <div className="form-cadastro-full">
+                        <label className="input-label-full-width app-label" htmlFor="buscar">
+                          Cidade:
+                        </label>
+                        <div className="input-button-group-full-width">
+                          <input
+                            id="buscar"
+                            className="form-control app-label"
+                            defaultValue={model.nomeCidade || ''}
+                            readOnly
+                          />
+                        </div>
+                      </div>
+                      <Input
+                        id="codProfessor"
+                        label="Código do Professor:"
+                        type="text"
+                        value={model.codProfessor}
+                        error={errors.codProfessor}
+                        errorMensagem={errors.codProfessorMensagem}
+                        readonly={true}
+                      />
+                      <Input
+                        id="nomeProfessor"
+                        label="Nome do Professor:"
+                        Icon={FaIcons.FaUserCircle}
+                        type="text"
+                        value={model.nomeProfessor}
+                        error={errors.nomeProfessor}
+                        errorMensagem={errors.nomeProfessorMensagem}
+                        readonly={true}
+                      />
+                      <Button
+                        id="buttonSubmit"
+                        type="submit"
+                        title={`Incluir dados do ${PROFESSOR_SHOW}`}
+                        variant={DANGER}
+                        cssClass="app-button app-label mt-3"
+                        label={MESSAGE_DELETE_FORM}
+                        icon={<FaIcons.FaSave size={BUTTON_SIZE} />}
+                      />
+                      <LinkButton
+                        to={ROTA.PROFESSOR.LISTAR}
+                        type="button"
+                        title={`Cancelar a inclusão dos dados do ${PROFESSOR_SHOW}`}
+                        variant={WARNING}
+                        cssClass="app-button app-label mt-3"
+                        label={MESSAGE_CANCEL_FORM}
+                        icon={<MdIcons.MdCancel size={BUTTON_SIZE} />}
+                      />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </Box>
+      </div>
+    </Form>
+  );
+};
+
+export default Excluir;

@@ -1,0 +1,178 @@
+
+
+.app-titulo-sistema {
+  display: flex;
+  justify-content: space-between; /* Distribui espaço entre título/descrição e navegação */
+  align-items: center; /* Alinha os itens verticalmente ao centro */
+  background: #fff;
+  /* Removido o margin: -30px -30px; */
+  /* Se este componente estiver imediatamente abaixo do header, você pode adicionar um margin-top */
+  top:0;
+  
+  margin-left: 0px;
+  padding: 20px 30px; /* Preenchimento interno para o conteúdo */
+  width: 100%; /* Garante que ocupe a largura total do pai */
+  box-sizing: border-box; /* Inclui padding e borda na largura total */
+  border-bottom: 1px solid #eee; /* Mantém a borda inferior */
+  max-width: 100%;
+}
+
+/* Contêiner para Título e Descrição */
+.title-and-description {
+  display: flex;
+  flex-direction: column; /* Título e descrição um abaixo do outro */
+  gap: 5px; /* Espaçamento entre o título e a descrição */
+}
+
+.app-titulo-sistema h3 {
+  margin: 0; /* Remove margem padrão do h3 */
+  font-size: 24px;
+  font-weight: 400;
+  display: flex; /* Para alinhar o ícone com o texto */
+  align-items: center; /* Alinha o ícone e o texto verticalmente */
+  gap: 10px; /* Espaçamento entre o ícone e o título */
+  color: #333; /* Cor mais neutra para o título */
+}
+
+.app-titulo-sistema p {
+  margin-bottom: 0;
+  font-style: italic;
+  font-size: 15px; /* Ajuste para melhor legibilidade */
+  color: #666; /* Cor mais suave para a descrição */
+}
+
+/* Wrapper para os ícones */
+.icon-wrapper {
+  display: flex; /* Garante que o ícone seja um flex item */
+  align-items: center; /* Centraliza verticalmente o ícone */
+  justify-content: center; /* Centraliza horizontalmente o ícone se ele tiver um tamanho fixo */
+  font-size: 20px; /* Tamanho padrão para ícones */
+  color: #555; /* Cor padrão para ícones */
+}
+
+/* Se você precisar de tamanhos diferentes para ícones, use seletores mais específicos ou classes */
+.app-titulo-sistema h3 .icon-wrapper {
+  font-size: 24px; /* Ícone do título maior */
+}
+
+.font-navegacao {
+  font-size: 14px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Permite que o breadcrumb quebre linha se necessário */
+  gap: 5px; /* Espaçamento entre os itens do breadcrumb (se houver mais de um) */
+}
+
+.font-navegacao .breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; /* Espaçamento entre os itens do breadcrumb */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.font-navegacao .breadcrumb-item {
+  /* Não precisa de display: flex aqui pois o Link será flex */
+  font-size: 14px;
+}
+
+.font-navegacao .breadcrumb-item a {
+  text-decoration: none;
+  display: flex; /* Para alinhar o ícone e o texto dentro do link */
+  align-items: center; /* Alinha o ícone e o texto verticalmente */
+  gap: 15px; /* Espaçamento entre o ícone e o texto do link */
+  padding: 5px 0; /* Um pequeno padding para área clicável */
+  transition: color 0.2s ease-in-out; /* Transição suave na cor */
+}
+
+.font-navegacao .breadcrumb-item a:hover {
+  text-decoration: underline;
+  color: #0056b3; /* Cor mais escura no hover */
+}
+
+/* --- Media Queries para Responsividade --- */
+
+@media (max-width: 768px) {
+  .app-titulo-sistema {
+    flex-direction: column; /* Empilha o título/descrição e a navegação */
+    align-items: flex-start; /* Alinha tudo à esquerda */
+    gap: 15px; /* Espaçamento entre os dois grupos */
+    padding: 15px 20px; /* Reduz o padding em telas menores */
+  }
+
+  .app-titulo-sistema h3 {
+    font-size: 20px;
+    gap: 8px; /* Reduz o espaçamento do ícone do título */
+  }
+
+  .app-titulo-sistema h3 .icon-wrapper {
+    font-size: 20px; /* Reduz o tamanho do ícone do título */
+  }
+
+  .app-titulo-sistema p {
+    font-size: 14px;
+  }
+
+  .font-navegacao {
+    font-size: 12px;
+    justify-content: flex-start;
+  }
+
+  .font-navegacao .breadcrumb {
+    gap: 3px;
+  }
+
+  .font-navegacao .breadcrumb-item {
+    font-size: 12px;
+  }
+
+  .font-navegacao .breadcrumb-item a {
+    gap: 3px;
+  }
+
+  .font-navegacao .breadcrumb-item .icon-wrapper {
+    font-size: 16px; /* Reduz o tamanho do ícone do breadcrumb */
+  }
+}
+
+@media (max-width: 480px) {
+  .app-titulo-sistema {
+    padding: 10px 15px; /* Mais redução de padding */
+    gap: 10px;
+  }
+
+  .app-titulo-sistema h3 {
+    font-size: 18px;
+    gap: 5px;
+  }
+
+  .app-titulo-sistema h3 .icon-wrapper {
+    font-size: 18px;
+  }
+
+  .app-titulo-sistema p {
+    font-size: 13px;
+  }
+
+  .font-navegacao {
+    font-size: 10px;
+  }
+
+  .font-navegacao .breadcrumb {
+    gap: 2px;
+  }
+
+  .font-navegacao .breadcrumb-item {
+    font-size: 10px;
+  }
+
+  .font-navegacao .breadcrumb-item a {
+    gap: 2px;
+  }
+
+  .font-navegacao .breadcrumb-item .icon-wrapper {
+    font-size: 14px;
+  }
+}

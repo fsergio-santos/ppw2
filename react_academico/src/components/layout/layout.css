@@ -1,0 +1,356 @@
+
+/* ========================================================================== */
+/* Estilos do Header                                                */
+/* ========================================================================== */
+
+.app-header {
+  position: fixed; /* Header fixo no topo da tela */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px; /* Altura definida pela variável */
+  background: #3C9B46; /* Cor de fundo do cabeçalho */
+  z-index: 1000; /* Garante que o header fique acima de outros elementos */
+  display: flex; /* Para alinhar o main-header-container */
+  align-items: center; /* Centraliza verticalmente o main-header-container */
+  padding: 0 20px; /* Padding horizontal para o conteúdo do header */
+  box-sizing: border-box; /* Inclui padding na largura total */
+}
+
+/* Contêiner principal para o conteúdo do header (logo, toggle, perfil) */
+.main-header-container {
+  display: flex;
+  justify-content: space-between; /* Distribui espaço entre o grupo da esquerda e o perfil */
+  align-items: center; /* Alinha os itens verticalmente ao centro */
+  width: 100%; /* Ocupa toda a largura disponível dentro do app-header */
+  height: 100%; /* Ocupa toda a altura disponível dentro do app-header */
+}
+
+/* Contêiner para o grupo da esquerda (Logo + Toggle) */
+.left-group-container {
+  display: flex;
+  align-items: center;
+  gap: 50px; /* Espaçamento entre o app-leftarea e o app-toggle */
+}
+
+.app-leftarea {
+  display: flex; /* Para alinhar "SISTEMA" e "IFSP" */
+  align-items: center;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.app-leftarea span {
+  margin-left: 8px;
+  color: #19B3D3;
+  font-weight: normal;
+}
+
+/* Botão de Toggle (Menu de Sanduíche) */
+.app-toggle {
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+ 
+.app-toggle:hover {
+  opacity: 0.8;
+  transition: transform .3s;
+  color:#FFF
+
+}
+
+/* Seção de Perfil do Usuário */
+.app-profile {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Espaçamento entre o profile-container e outros elementos (se houver) */
+  position: relative; /* Essencial para posicionar o dropdown-menu corretamente */
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaçamento entre a imagem e o nome "Sérgio" */
+  cursor: pointer;
+  padding: 5px; /* Para facilitar o clique */
+  border-radius: 20px;
+  transition: background 0.2s ease-in-out;
+}
+
+.profile-container:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.profile-container img {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.profile-container span {
+  font-size: 18px;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Dropdown Menu do Perfil */
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Posiciona abaixo do .profile-container */
+  right: 0; /* Alinha à direita do .profile-container */
+  background: #9cab9e;
+  padding: 8px 0;
+  min-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1001; /* Garante que o dropdown esteja acima de todos os outros elementos */
+
+  /* Animação de entrada/saída */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px); /* Começa um pouco acima */
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.dropdown-menu.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0); /* Move para a posição final */
+}
+
+.dropdown-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-menu li {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #fff;
+  transition: background 0.2s;
+}
+
+.dropdown-menu li i {
+  width: 30px; 
+  text-align: center; 
+  margin-right: 12px; 
+  color: #e0e0e0;
+}
+
+.dropdown-menu li:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ========================================================================== */
+/* Estilos do Sidebar                                               */
+/* ========================================================================== */
+
+/* Estilos da SideBar - ESTADO PADRÃO (ABERTO/RECOLHIDO PARA ÍCONES EM DESKTOP) */
+.app-sidebar {
+  position: fixed;
+  top: 80px; /* Inicia abaixo do header */
+  left: 0;
+  height: calc(100vh - 80px); /* Ocupa a altura restante da viewport */
+  background-color: #15171c;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  transition: width 0.3s ease, transform 0.3s ease; /* Transição para width e transform */
+  z-index: 999; /* Fica acima do conteúdo, mas abaixo do header */
+  overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
+  /* Desktop padrão: sidebar está aberto com largura total (220px) */
+  width: 220px;
+  transform: translateX(0); /* Garante que esteja visível na tela */
+  padding-top: 30px;
+}
+
+.app-sidebar.active {
+    left: -220px; 
+}
+
+/* Quando o sidebar está FECHADO/RECOLHIDO (a classe 'active' NÃO está presente) */
+/* Isso é o inverso da lógica anterior para padronizar 'active' como 'aberto' */
+/* Removido .app-sidebar.active com width: var(--sidebar-width) pois a classe ativa significa aberto */
+/* E o padrão é o estado de aberto (220px) */
+/* Quando o sidebar está fechado (sem active) ele deve ir para a largura colapsada (60px) */
+
+/* Estilos para a lista de navegação dentro do sidebar */
+.app-sidebar ul {
+    list-style: none; /* Remove marcadores de lista */
+    padding: 0; /* Remove padding padrão da ul */
+    margin: 5px 0 0 0; /* Margem superior e zera outras */
+    width: 100%; /* Ocupa a largura total do sidebar */
+}
+
+/* Estilos para cada item da lista (li) */
+.app-sidebar li {
+    position: relative;
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 0;
+}
+
+/* Estilos para os links dentro dos itens da lista */
+.app-sidebar ul li a {
+    display: flex; /* Usa flexbox para alinhar ícone e texto */
+    align-items: center; /* Alinha verticalmente ícone e texto */
+    color: #fff; /* Cor do texto do link */
+    text-decoration: none; /* Remove sublinhado padrão */
+    border-radius: 12px;
+    white-space: nowrap; /* Impede que o texto quebre linha */
+    transition: all 0.3s ease; /* Transição suave para hover e outras propriedades */
+    padding: 10px 15px 10px 25px; /* Top, Right, Bottom, Left */
+}
+
+/* Estilo ao passar o mouse sobre o link */
+.app-sidebar ul li a:hover{
+    color: #11101d; /* Cor do texto no hover */
+    background: #fff; /* Fundo branco no hover */
+}
+
+/* Estilos para os ícones dentro dos links */
+.app-sidebar ul li i{
+    min-width: 40px; /* Largura mínima para o ícone */
+    height: 40px; /* Altura do ícone */
+    line-height: 40px; /* Centraliza verticalmente o ícone (se o ícone for menor que 40px) */
+    border-radius: 12px;
+    text-align: center; /* Centraliza horizontalmente o ícone */
+    margin-right: 10px; /* Espaço entre o ícone e o texto do link */
+}
+
+.app-sidebar-item {
+    padding: .5em 1em;
+    display: block;
+    transition: background-color .15s;
+    border-radius: 5px;
+  }
+
+  .app-sidebar-item:hover{
+    background-color: rgba(255, 255, 255, .1);
+  }
+  
+  .app-sidebar-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1rem;
+
+    
+  }
+  
+  .app-sidebar-title span {
+    color:#FFF;
+    display: flex;
+    align-items: center;
+
+  }
+  
+  .app-sidebar-title span i {
+    display: flex;
+    align-items: center;
+    color:#FFF;
+    width: 1.5em;
+    margin-right: 20px;
+  }
+  
+  .app-sidebar-title .app-toggle-btn{
+    cursor: pointer;
+    transition: transform .3s;
+    color:#FFF
+  }
+  
+  .app-sidebar-item.open > .app-sidebar-title .app-toggle-btn{
+    transform: rotate(180deg);
+  }
+  
+  .app-sidebar-content{
+    padding-top: .25em;
+    height: 0;
+    overflow: hidden;
+  
+  }
+  
+  .app-sidebar-item.open > .app-sidebar-content{
+    height: auto;
+  }
+  
+  .app-sidebar-item.plain{
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;  
+  }
+  
+  .app-sidebar-item.plain:hover{
+    text-decoration: none;
+  }
+  
+  .app-sidebar-item.plain i{
+    display: inline-block;
+    margin-right: 20px;
+  
+  }
+
+/* ========================================================================== */
+/* Estilos do Conteúdo Principal (main)                             */
+/* ========================================================================== */
+
+/* Contêiner que envolve a Sidebar e o Conteúdo Principal */
+.page-wrapper {
+  display: flex;
+  flex: 1; /* Faz com que ocupe o restante da altura disponível */
+  margin-top: 80px; /* Empurra para baixo do header fixo */
+}
+
+/* Estilos para o Conteúdo Principal da Aplicação */
+.app-content {
+  flex-grow: 1; /* Ocupa todo o espaço restante horizontalmente */
+  padding-left: 220px; /* Padding inicial para sidebar aberto (padrão desktop) */
+  box-sizing: border-box;
+  transition: padding-left 0.3s ease; /* Transição suave do padding */
+  min-height: calc(100vh - 80px); /* Garante altura mínima */
+  background-color: #f7f7f7;
+}
+
+.app-content.active {
+     margin-left: 0px;
+     padding-left: 0px;
+}
+
+
+/* Estilos para o Título e Breadcrumb da Página (Componente Navegacao) */
+.app-titulo-sistema {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 20px 30px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px; /* Espaçamento abaixo da navegação */
+}
+
+
+
+
+
+
+
+
+
+

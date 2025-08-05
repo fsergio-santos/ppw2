@@ -1,0 +1,13 @@
+.img-avatar {
+	border: 1px solid #dee2e6;
+	max-width: 40%;
+	border-radius: 50%;
+	margin: auto auto;
+}
+
+.img-avatar__header {
+	border: 1px solid #dee2e6;
+	max-width: 12%;
+	margin: auto auto;
+	border-radius: 50%;
+}
