@@ -14,6 +14,7 @@ enum MENSAGEM_GENERICA {
   ERRO_ENVIO_EMAIL = 'ERRO_ENVIO_EMAIL',
   ID_OBRIGATORIO = 'ID_OBRIGATORIO',
   RESET_PASSWORD = 'RESET_PASSWORD',
+  ERRO_INTERNO_DO_SERVIDOR = 'ERRO_INTERNO_DO_SERVIDOR',
 }
 
 type MensagensGenericas = {
@@ -36,4 +37,5 @@ export const MENSAGENS_GENERICAS: MensagensGenericas = {
   [MENSAGEM_GENERICA.ERRO_ENVIO_EMAIL]: 'Erro ao enviar e-mail, por favor tente novamente mais tarde.',
   [MENSAGEM_GENERICA.ID_OBRIGATORIO]: 'O código de Identificação é obrigatório para esta operação.',
   [MENSAGEM_GENERICA.RESET_PASSWORD]: 'Senha redefinida com sucesso.',
+  [MENSAGEM_GENERICA.ERRO_INTERNO_DO_SERVIDOR]: 'Erro interno no servidor, tente mais tarde',
 };

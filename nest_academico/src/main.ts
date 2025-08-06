@@ -1,15 +1,43 @@
 import { HttpStatus, UnprocessableEntityException, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ApiResponseOptions, DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import { AlunoResponse } from './aluno/dto/response/aluno.response';
 import { AppModule } from './app/app.module';
 import { CidadeResponse } from './cidade/dto/response/cidade.response';
+import { MENSAGENS_GENERICAS } from './commons/enum/mensagem.generica.enum';
 import { ShowExceptionsFilter } from './commons/exceptions/exception.academico';
 import { UnprocessebleEntityExceptionFilter } from './commons/exceptions/filters/unprocesseable.entity.filter';
 import { Mensagem } from './commons/response/mensagem';
 import { ProfessorResponse } from './professor/dto/response/professor.response';
 import { UsuarioResponse } from './usuario/dto/response/usuario.response';
+
+const globalResponse: ApiResponseOptions[] = [
+  {
+    status: HttpStatus.BAD_REQUEST,
+    description: MENSAGENS_GENERICAS.DADOS_INVALIDOS,
+  },
+  {
+    status: HttpStatus.UNAUTHORIZED,
+    description: MENSAGENS_GENERICAS.SEM_AUTORIZACAO,
+  },
+  {
+    status: HttpStatus.FORBIDDEN,
+    description: MENSAGENS_GENERICAS.ACESSO_PROIBIDO,
+  },
+  {
+    status: HttpStatus.NOT_FOUND,
+    description: MENSAGENS_GENERICAS.NAO_ENCONTRADO,
+  },
+  {
+    status: HttpStatus.UNPROCESSABLE_ENTITY,
+    description: MENSAGENS_GENERICAS.DADOS_INVALIDOS,
+  },
+  {
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: MENSAGENS_GENERICAS.ERRO_INTERNO_DO_SERVIDOR,
+  },
+];
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
@@ -44,6 +72,7 @@ async function bootstrap(): Promise<void> {
     .setDescription('API para gestão acadêmica.')
     .addBearerAuth()
     .setVersion('1.0')
+    .addGlobalResponse(...globalResponse)
     .build();
 
   const document = SwaggerModule.createDocument(app, configSwagger, {

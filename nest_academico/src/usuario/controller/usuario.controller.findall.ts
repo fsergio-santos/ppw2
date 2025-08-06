@@ -3,7 +3,7 @@ import { MensagemSistema } from 'src/commons/response/mensagem.sistema';
 
 import { Request } from 'express';
 import { Result } from 'src/commons/response/mensagem';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiRespostaPadrao } from 'src/commons/decorators/swagger.decorators';
 import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
 import { ROTA } from 'src/commons/constants/url.sistema';
