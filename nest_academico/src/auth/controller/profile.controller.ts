@@ -15,3 +15,4 @@ export class ProfileController {
     return MensagemSistema.showMensagem(HttpStatus.OK, null, req.user, req.path, null);
   }
 }
+

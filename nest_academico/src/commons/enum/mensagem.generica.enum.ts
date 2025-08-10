@@ -15,6 +15,8 @@ enum MENSAGEM_GENERICA {
   ID_OBRIGATORIO = 'ID_OBRIGATORIO',
   RESET_PASSWORD = 'RESET_PASSWORD',
   ERRO_INTERNO_DO_SERVIDOR = 'ERRO_INTERNO_DO_SERVIDOR',
+  JSON_APPLICATION = 'JSON_APPLICATION',
+  IDENTIFICADOR_UNICO = 'IDENTIFICADOR_UNICO',
 }
 
 type MensagensGenericas = {
@@ -38,4 +40,6 @@ export const MENSAGENS_GENERICAS: MensagensGenericas = {
   [MENSAGEM_GENERICA.ID_OBRIGATORIO]: 'O código de Identificação é obrigatório para esta operação.',
   [MENSAGEM_GENERICA.RESET_PASSWORD]: 'Senha redefinida com sucesso.',
   [MENSAGEM_GENERICA.ERRO_INTERNO_DO_SERVIDOR]: 'Erro interno no servidor, tente mais tarde',
+  [MENSAGEM_GENERICA.JSON_APPLICATION]: 'application/json',
+  [MENSAGEM_GENERICA.IDENTIFICADOR_UNICO]: 'Identificador único',
 };

@@ -45,6 +45,11 @@ function gerarMensagensEntidade(entityKey: string): MensagensEntidade {
     [TipoOperacaoEntidade.LISTAR]: `Lista de ${nomePluralLower} carregada com sucesso.`,
     [TipoOperacaoEntidade.POR_ID]: `${nomeSingularCapitalizado} localizado com sucesso.`,
     [TipoOperacaoEntidade.CHECK_EMAIL]: `${nomeSingularCapitalizado} verifique seu e-mail.`,
+    [TipoOperacaoEntidade.OPERACAO_CRIAR]: `Criar um novo ${nomeSingularCapitalizado}`,
+    [TipoOperacaoEntidade.OPERACAO_ATUALIZAR]: `Atualizar os dados - ${nomeSingularCapitalizado}`,
+    [TipoOperacaoEntidade.OPERACAO_POR_ID]: `Mostra os dados - ${nomeSingularCapitalizado} - por um identificador único`,
+    [TipoOperacaoEntidade.OPERACAO_EXCLUIR]: `Exlui os dados - ${nomeSingularCapitalizado} - por um identificador único`,
+    [TipoOperacaoEntidade.OPERACAO_LISTAR]: `Listagem dos dados - ${nomePluralLower} `,
   };
 }
 

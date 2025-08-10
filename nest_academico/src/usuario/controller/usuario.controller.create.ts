@@ -6,6 +6,7 @@ import { Request } from 'express';
 import { AuthTokenGuard } from 'src/auth/guard/auth.token.guard';
 import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
 import { ROTA } from 'src/commons/constants/url.sistema';
+import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
 import { Result } from 'src/commons/response/mensagem';
 import { UsuarioRequest } from '../dto/request/usuario.request';
 import { UsuarioResponse } from '../dto/response/usuario.response';
@@ -18,10 +19,10 @@ export class UsuarioControllerCreate {
   constructor(private readonly usuarioService: UsuarioServiceCreate) {}
 
   @Post(ROTA.USUARIO.CRIAR)
-  @ApiOperation({ summary: 'Criar um novo usuário' })
+  @ApiOperation({ summary: MENSAGEM.USUARIO.OPERACAO_CRIAR })
   @ApiParam({
     name: 'UsuarioRequest',
-    description: 'Dados do usuário a ser criado',
+    description: MENSAGEM.ALUNO.OPERACAO_CRIAR,
     required: true,
     type: UsuarioRequest,
   })
@@ -30,8 +31,8 @@ export class UsuarioControllerCreate {
     description: MENSAGEM.USUARIO.CRIAR,
     type: UsuarioResponse,
   })
-  @ApiConsumes('application/json')
-  @ApiProduces('application/json')
+  @ApiConsumes(MENSAGENS_GENERICAS.JSON_APPLICATION)
+  @ApiProduces(MENSAGENS_GENERICAS.JSON_APPLICATION)
   async create(@Body() usuarioRequest: UsuarioRequest, @Req() req: Request): Promise<Result<UsuarioResponse>> {
     const response = await this.usuarioService.create(usuarioRequest);
     return MensagemSistema.showMensagem(HttpStatus.CREATED, MENSAGEM.USUARIO.CRIAR, response, req.path, null);
