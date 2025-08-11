@@ -7,6 +7,7 @@ import type { ErrorState } from '../../../type/validation.types';
 import { DANGER, SUCCESS, TIME } from '../../constant/Constantes';
 import { ROTA_AUT } from '../../constant/Url';
 import { MENSAGEM_SISTEMA } from '../../errors/MensagemSistema';
+import MESSAGES from '../../errors/Mensagens';
 import { getMessageByStatus } from '../../errors/StatusMensagens';
 import { useApiResponseHandler } from '../../hook/ApiResponseHandler';
 import { useApi } from '../ApiConnection';
@@ -49,7 +50,7 @@ const useForgot = (): UseForgotProps => {
       showAlert(msg, SUCCESS, TIME);
       return response.data;
     } catch (error: any) {
-      const { mensagem, dados } = tratarErrosApi(error);
+      const { mensagem = MESSAGES.HTTP_INTERNAL_SERVER_ERROR, dados } = tratarErrosApi(error);
       setErrorForgot(dados);
       showAlert(mensagem, DANGER, TIME);
       return undefined;

@@ -1,5 +1,31 @@
-import MESSAGES from './Mensagens';
 import { AxiosError } from 'axios';
+import MESSAGES from './Mensagens';
+
+export type AxiosErrorCode =
+  | 'ECONNABORTED'
+  | 'ERR_NETWORK'
+  | 'ERR_CANCEL'
+  | 'ERR_UNKNOWN'
+  | 'ERR_BAD_REQUEST'
+  | 'ERR_UNAUTHORIZED'
+  | 'ERR_NOT_FOUND'
+  | 'ERR_SERVER_ERROR'
+  | 'ERR_CONNECTION_REFUSED';
+
+
+  export const isAxiosErrorCode = (code: string | undefined): code is AxiosErrorCode => {
+  return [
+    'ECONNABORTED',
+    'ERR_NETWORK',
+    'ERR_CANCEL',
+    'ERR_UNKNOWN',
+    'ERR_BAD_REQUEST',
+    'ERR_UNAUTHORIZED',
+    'ERR_NOT_FOUND',
+    'ERR_SERVER_ERROR',
+    'ERR_CONNECTION_REFUSED',
+  ].includes(code ?? '');
+};
 
 export const getMessageByStatus = (status: number): string => {
   switch (status) {
@@ -28,7 +54,7 @@ export const getMessageByStatus = (status: number): string => {
   }
 };
 
-export const getMessageByType = (error: AxiosError): string => {
+export const getMessageByType = ((error: AxiosError & { code?: AxiosErrorCode }): string => {
   if (!error?.response) {
     return MESSAGES.ERR_NETWORK;
   }

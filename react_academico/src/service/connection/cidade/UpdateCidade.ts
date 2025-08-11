@@ -4,6 +4,7 @@ import type { Cidade } from '../../../type/Cidade';
 import type { MensagemServidor } from '../../../type/MensagemServidor';
 import { DANGER, SUCCESS, TIME } from '../../constant/Constantes';
 import { ROTA } from '../../constant/Url';
+import MESSAGES from '../../errors/Mensagens';
 import { getMessageByStatus } from '../../errors/StatusMensagens';
 import { useApiResponseHandler } from '../../hook/ApiResponseHandler';
 import { useApi } from '../ApiConnection';
@@ -29,7 +30,7 @@ const useUpdateCidade = (): UseUpdateCidadeProps => {
       showAlert(msg, SUCCESS, TIME);
       return response.data;
     } catch (error: any) {
-      const { mensagem, dados } = tratarErrosApi(error);
+      const { mensagem = MESSAGES.HTTP_INTERNAL_SERVER_ERROR, dados } = tratarErrosApi(error);
       setErrorUpdateCidade(dados);
       showAlert(mensagem, DANGER, TIME);
       return undefined;

@@ -6,6 +6,7 @@ import { DANGER, TIME } from '../../constant/Constantes';
 import { ROTA_AUT } from '../../constant/Url';
 import { useApiResponseHandler } from '../../hook/ApiResponseHandler';
 import { useApi } from '../ApiConnection';
+import MESSAGES from '../../errors/Mensagens';
 
 type UseGetLogin = {
   getLogin: (dados: Login) => Promise<void | undefined>;
@@ -23,7 +24,7 @@ const useGetLogin = (): UseGetLogin => {
     try {
       await postData(ROTA_AUT.LOGIN, dados);
     } catch (error: any) {
-      const { mensagem, dados } = tratarErrosApi(error);
+     const { mensagem = MESSAGES.HTTP_INTERNAL_SERVER_ERROR, dados } = tratarErrosApi(error);
       setErrorGetLogin(dados);
       showAlert(mensagem, DANGER, TIME);
       return undefined;

@@ -8,6 +8,7 @@ import { getMessageByStatus } from '../../errors/StatusMensagens';
 import { useApi } from '../ApiConnection';
 
 import { useApiResponseHandler } from '../../hook/ApiResponseHandler';
+import MESSAGES from '../../errors/Mensagens';
 
 type UseDeleteProfessorProps = {
   deleteProfessorById: (id: string) => Promise<MensagemServidor<Professor> | undefined>;
@@ -30,7 +31,7 @@ const useDeleteProfessor = (): UseDeleteProfessorProps => {
       showAlert(msg, SUCCESS, TIME);
       return response.data;
     } catch (error: any) {
-      const { mensagem, dados } = tratarErrosApi(error);
+      const { mensagem = MESSAGES.HTTP_INTERNAL_SERVER_ERROR, dados } = tratarErrosApi(error);
       setErrorDeleteProfessor(dados);
       showAlert(mensagem, DANGER, TIME);
       return undefined;

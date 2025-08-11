@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { useAlert } from '../../../context/AlertContexto';
 import type { MensagemServidor } from '../../../type/MensagemServidor';
 import type { Usuario } from '../../../type/Usuario';
-import { SUCCESS, TIME } from '../../constant/Constantes';
+import { DANGER, SUCCESS, TIME } from '../../constant/Constantes';
 import { ROTA } from '../../constant/Url';
+import MESSAGES from '../../errors/Mensagens';
 import { getMessageByStatus } from '../../errors/StatusMensagens';
 import { useApiResponseHandler } from '../../hook/ApiResponseHandler';
-import { handleApiError } from '../../utils/handlerApiError';
 import { useApi } from '../ApiConnection';
 
 type UseUpdateUsuarioProps = {
@@ -30,9 +30,9 @@ const useUpdateUsuario = (): UseUpdateUsuarioProps => {
       showAlert(msg, SUCCESS, TIME);
       return response.data;
     } catch (error: any) {
-      const { dados } = error.response.data;
+      const { mensagem = MESSAGES.HTTP_INTERNAL_SERVER_ERROR, dados } = tratarErrosApi(error);
       setErrorUpdateUsuario(dados);
-      handleApiError(error);
+      showAlert(mensagem, DANGER, TIME);
       return undefined;
     } finally {
       setLoading(false);

@@ -7,6 +7,7 @@ import { ROTA } from '../../constant/Url';
 import { getMessageByStatus } from '../../errors/StatusMensagens';
 import { useApiResponseHandler } from '../../hook/ApiResponseHandler';
 import { useApi } from '../ApiConnection';
+import MESSAGES from '../../errors/Mensagens';
 
 type UseInsertUsuarioProps = {
   insertUsuario: (dados: Usuario) => Promise<MensagemServidor<Usuario> | undefined>;
@@ -29,7 +30,7 @@ const useInsertUsuario = (): UseInsertUsuarioProps => {
       showAlert(msg, SUCCESS, TIME);
       return response.data;
     } catch (error: any) {
-      const { mensagem, dados } = tratarErrosApi(error);
+      const { mensagem = MESSAGES.HTTP_INTERNAL_SERVER_ERROR, dados } = tratarErrosApi(error);
       setErrorInsertUsuario(dados);
       showAlert(mensagem, DANGER, TIME);
       return undefined;
