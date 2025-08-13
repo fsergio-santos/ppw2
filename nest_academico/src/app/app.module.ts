@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
 
-import { UsuarioModule } from '../usuario/usuario.module';
-import * as Joi from 'joi';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CidadeModule } from 'src/cidade/cidade.module';
-import { ProfessorModule } from 'src/professor/professor.module';
+import * as Joi from 'joi';
 import { AlunoModule } from 'src/aluno/aluno.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { CidadeModule } from 'src/cidade/cidade.module';
+import { ProfessorModule } from 'src/professor/professor.module';
+import { DepartamentoModule } from '../departamento/departamento.module';
+import { UsuarioModule } from '../usuario/usuario.module';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const oracledb = require('oracledb') as typeof import('oracledb');
@@ -15,6 +16,8 @@ const oracledb = require('oracledb') as typeof import('oracledb');
 oracledb.initOracleClient({
   libDir: 'D:/arquivos/nds/aulas_javascript/oracle/instantclient',
 });
+
+const modules = [UsuarioModule, CidadeModule, ProfessorModule, AlunoModule, AuthModule, DepartamentoModule];
 
 @Module({
   imports: [
@@ -55,11 +58,7 @@ oracledb.initOracleClient({
         //entities: [Usuario],
       }),
     }),
-    UsuarioModule,
-    CidadeModule,
-    ProfessorModule,
-    AlunoModule,
-    AuthModule,
+    ...modules,
   ],
   controllers: [],
   providers: [],

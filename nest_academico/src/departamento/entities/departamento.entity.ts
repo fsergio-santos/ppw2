@@ -4,13 +4,13 @@ import { Column, Entity, PrimaryColumn } from 'typeorm';
 @Entity('DEPARTAMENTO')
 export class Departamento extends BaseEntity {
   @PrimaryColumn({ name: 'ID_DEPARTAMENTO', type: 'number' })
-  idDepartamentoi?: number;
+  idDepartamento?: number;
 
   @Column({ name: 'COD_DEPARTAMENTO', type: 'varchar' })
-  codDepartamentoi: string = '';
+  codDepartamento: string = '';
 
   @Column({ name: 'NOME_DEPARTAMENTO', type: 'varchar' })
-  nomeDepartamentoi: string = '';
+  nomeDepartamento: string = '';
 
   constructor(data: Partial<Departamento> = {}) {
     super();
