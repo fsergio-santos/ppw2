@@ -1,18 +1,18 @@
-import { Controller, Body, HttpStatus, Put, Param, ParseIntPipe, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Param, ParseIntPipe, Put, Req, UseGuards } from '@nestjs/common';
 import { MensagemSistema } from 'src/commons/response/mensagem.sistema';
 
+import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-import { Result } from 'src/commons/response/mensagem';
-import { ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { TokenPayloadDto } from 'src/auth/dto/token.payload';
+import { AuthTokenGuard } from 'src/auth/guard/auth.token.guard';
+import { TokenPayloadParam } from 'src/auth/params/token.payload.param';
 import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
 import { ROTA } from 'src/commons/constants/url.sistema';
-import { UsuarioServiceUpdate } from '../service/usuario.service.update';
-import { UsuarioResponse } from '../dto/response/usuario.response';
-import { UsuarioRequest } from '../dto/request/usuario.request';
-import { AuthTokenGuard } from 'src/auth/guard/auth.token.guard';
-import { TokenPayloadDto } from 'src/auth/dto/token.payload';
-import { TokenPayloadParam } from 'src/auth/params/token.payload.param';
 import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
+import { Result } from 'src/commons/response/mensagem';
+import { UsuarioRequest } from '../dto/request/usuario.request';
+import { UsuarioResponse } from '../dto/response/usuario.response';
+import { UsuarioServiceUpdate } from '../service/usuario.service.update';
 
 @UseGuards(AuthTokenGuard)
 @ApiTags(SHOW_ENTITY.USUARIO)
@@ -23,10 +23,10 @@ export class UsuarioControllerUpdate {
   @Put(ROTA.USUARIO.ATUALIZAR)
   @ApiOperation({ summary: MENSAGEM.USUARIO.OPERACAO_ATUALIZAR })
   @ApiParam({
-      name: 'UsuarioRequest',
-      description: 'Dados do usuário a ser atualizado',
-      required: true,
-      type: UsuarioRequest,
+    name: 'UsuarioRequest',
+    description: 'Dados do usuário a ser atualizado',
+    required: true,
+    type: UsuarioRequest,
   })
   @ApiResponse({
     status: HttpStatus.OK,
@@ -35,6 +35,7 @@ export class UsuarioControllerUpdate {
   })
   @ApiConsumes(MENSAGENS_GENERICAS.JSON_APPLICATION)
   @ApiProduces(MENSAGENS_GENERICAS.JSON_APPLICATION)
+  @ApiBody({ type: UsuarioRequest })
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() usuarioRequest: UsuarioRequest,
@@ -45,4 +46,3 @@ export class UsuarioControllerUpdate {
     return MensagemSistema.showMensagem(HttpStatus.OK, MENSAGEM.USUARIO.ATUALIZAR, response, req.path, null);
   }
 }
-

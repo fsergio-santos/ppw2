@@ -1,15 +1,16 @@
-import { Controller, Body, HttpStatus, Put, Param, ParseIntPipe, Req } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Param, ParseIntPipe, Put, Req } from '@nestjs/common';
 import { MensagemSistema } from 'src/commons/response/mensagem.sistema';
 
+import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-import { Result } from 'src/commons/response/mensagem';
-import { ApiTags } from '@nestjs/swagger';
-import { ApiRespostaPadrao } from 'src/commons/decorators/swagger.decorators';
-import { ROTA } from 'src/commons/constants/url.sistema';
 import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
-import { ProfessorServiceUpdate } from '../service/professor.service.update';
-import { ProfessorResponse } from '../dto/response/professor.response';
+import { ROTA } from 'src/commons/constants/url.sistema';
+import { Result } from 'src/commons/response/mensagem';
+import { AlunoResponse } from '../../aluno/dto/response/aluno.response';
+import { MENSAGENS_GENERICAS } from '../../commons/enum/mensagem.generica.enum';
 import { ProfessorRequest } from '../dto/request/professor.request';
+import { ProfessorResponse } from '../dto/response/professor.response';
+import { ProfessorServiceUpdate } from '../service/professor.service.update';
 
 @ApiTags(SHOW_ENTITY.PROFESSOR)
 @Controller(ROTA.PROFESSOR.BASE)
@@ -17,7 +18,21 @@ export class ProfessorControllerUpdate {
   constructor(private readonly professorService: ProfessorServiceUpdate) {}
 
   @Put(ROTA.PROFESSOR.ATUALIZAR)
-  @ApiRespostaPadrao(ProfessorResponse, false, MENSAGEM.PROFESSOR.ATUALIZAR)
+  @ApiOperation({ summary: MENSAGEM.ALUNO.OPERACAO_ATUALIZAR })
+  @ApiParam({
+    name: 'ProfessorRequest',
+    description: MENSAGEM.PROFESSOR.OPERACAO_ATUALIZAR,
+    required: true,
+    type: ProfessorRequest,
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: MENSAGEM.PROFESSOR.ATUALIZAR,
+    type: AlunoResponse,
+  })
+  @ApiConsumes(MENSAGENS_GENERICAS.JSON_APPLICATION)
+  @ApiProduces(MENSAGENS_GENERICAS.JSON_APPLICATION)
+  @ApiBody({ type: ProfessorRequest })
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() professorRequest: ProfessorRequest,

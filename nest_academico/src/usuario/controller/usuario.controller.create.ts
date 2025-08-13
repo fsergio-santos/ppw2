@@ -1,7 +1,7 @@
 import { Body, Controller, HttpStatus, Post, Req, UseGuards } from '@nestjs/common';
 import { MensagemSistema } from 'src/commons/response/mensagem.sistema';
 
-import { ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { AuthTokenGuard } from 'src/auth/guard/auth.token.guard';
 import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
@@ -33,6 +33,7 @@ export class UsuarioControllerCreate {
   })
   @ApiConsumes(MENSAGENS_GENERICAS.JSON_APPLICATION)
   @ApiProduces(MENSAGENS_GENERICAS.JSON_APPLICATION)
+  @ApiBody({ type: UsuarioRequest })
   async create(@Body() usuarioRequest: UsuarioRequest, @Req() req: Request): Promise<Result<UsuarioResponse>> {
     const response = await this.usuarioService.create(usuarioRequest);
     return MensagemSistema.showMensagem(HttpStatus.CREATED, MENSAGEM.USUARIO.CRIAR, response, req.path, null);

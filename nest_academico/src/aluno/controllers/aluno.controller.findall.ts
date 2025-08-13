@@ -20,7 +20,7 @@ export class AlunoControllerFindAll {
   @ApiOperation({ summary: MENSAGEM.ALUNO.OPERACAO_LISTAR })
   @ApiResponse({
     status: HttpStatus.OK,
-    description: MENSAGEM.USUARIO.LISTAR,
+    description: MENSAGEM.ALUNO.LISTAR,
     type: AlunoResponse,
   })
   @ApiProduces(MENSAGENS_GENERICAS.JSON_APPLICATION)
