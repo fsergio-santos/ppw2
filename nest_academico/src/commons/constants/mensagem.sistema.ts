@@ -1,4 +1,5 @@
 import { TipoOperacaoEntidade } from '../enum/tipo.operacao.enum';
+import { ALUNO, AUTH, CIDADE, DEPARTAMENTO, PROFESSOR, USUARIO } from './constants.sistema';
 
 type MensagensEntidade = {
   [key in TipoOperacaoEntidade]: string;
@@ -54,17 +55,19 @@ function gerarMensagensEntidade(entityKey: string): MensagensEntidade {
 }
 
 export const MENSAGEM = {
-  USUARIO: gerarMensagensEntidade('usuario'),
-  PROFESSOR: gerarMensagensEntidade('professor'),
-  ALUNO: gerarMensagensEntidade('aluno'),
-  CIDADE: gerarMensagensEntidade('cidade'),
-  AUTH: gerarMensagensEntidade('auth'),
+  USUARIO: gerarMensagensEntidade(USUARIO),
+  PROFESSOR: gerarMensagensEntidade(PROFESSOR),
+  ALUNO: gerarMensagensEntidade(ALUNO),
+  CIDADE: gerarMensagensEntidade(CIDADE),
+  AUTH: gerarMensagensEntidade(AUTH),
+  DEPARTAMENTO: gerarMensagensEntidade(DEPARTAMENTO),
 };
 
 export const SHOW_ENTITY = {
-  USUARIO: getEntityDisplayName('usuario'),
-  PROFESSOR: getEntityDisplayName('professor'),
-  ALUNO: getEntityDisplayName('aluno'),
-  CIDADE: getEntityDisplayName('cidade'),
-  AUTH: getEntityDisplayName('auth'),
+  USUARIO: getEntityDisplayName(USUARIO),
+  PROFESSOR: getEntityDisplayName(PROFESSOR),
+  ALUNO: getEntityDisplayName(ALUNO),
+  CIDADE: getEntityDisplayName(CIDADE),
+  AUTH: getEntityDisplayName(AUTH),
+  DEPARTAMENTO: getEntityDisplayName(DEPARTAMENTO),
 };

@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Usuario } from 'src/usuario/entities/usuario.entity';
-import { EntityNotFoundException } from 'src/commons/exceptions/error/entity.exception';
 import { tratarErroBanco } from 'src/commons/banco/error.database';
-import { Aluno } from '../entities/aluno.entity';
-import { AlunoRequest } from '../dto/request/alunto.request';
-import { AlunoResponse } from '../dto/response/aluno.response';
-import { ConverterAluno } from '../dto/converter/aluno.converter';
-import { AlunoServiceFindOne } from './aluno.service.findone';
 import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
+import { EntityNotFoundException } from 'src/commons/exceptions/error/entity.exception';
+import { Usuario } from 'src/usuario/entities/usuario.entity';
+import { Repository } from 'typeorm';
+import { ConverterAluno } from '../dto/converter/aluno.converter';
+import { AlunoRequest } from '../dto/request/aluno.request';
+import { AlunoResponse } from '../dto/response/aluno.response';
+import { Aluno } from '../entities/aluno.entity';
+import { AlunoServiceFindOne } from './aluno.service.findone';
 
 @Injectable()
 export class AlunoServiceUpdate {
@@ -17,7 +17,6 @@ export class AlunoServiceUpdate {
     @InjectRepository(Aluno)
     private alunoRepository: Repository<Aluno>,
     @InjectRepository(Usuario)
-    private usuarioRepository: Repository<Usuario>,
     private findOne: AlunoServiceFindOne,
   ) {}
 

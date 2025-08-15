@@ -1,9 +1,9 @@
-import { Aluno } from 'src/aluno/entities/aluno.entity';
-import { AlunoRequest } from '../request/alunto.request';
-import { AlunoResponse } from '../response/aluno.response';
-import { Usuario } from 'src/usuario/entities/usuario.entity';
-import { Cidade } from 'src/cidade/entities/cidade.entity';
 import { plainToInstance } from 'class-transformer';
+import { Aluno } from 'src/aluno/entities/aluno.entity';
+import { Cidade } from 'src/cidade/entities/cidade.entity';
+import { Usuario } from 'src/usuario/entities/usuario.entity';
+import { AlunoRequest } from '../request/aluno.request';
+import { AlunoResponse } from '../response/aluno.response';
 
 export class ConverterAluno {
   static toAluno(alunoRequest: AlunoRequest): Aluno {

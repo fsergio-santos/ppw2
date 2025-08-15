@@ -1,4 +1,4 @@
-import { ALUNO, CIDADE, PROFESSOR, USUARIO } from './constants.sistema';
+import { ALUNO, CIDADE, DEPARTAMENTO, PROFESSOR, USUARIO } from './constants.sistema';
 
 export const SERVIDOR = 'http://localhost:8000';
 export const CLIENTE = 'http://localhost:3000';
@@ -29,6 +29,7 @@ export const ROTA = {
   PROFESSOR: gerarRotasSistema(PROFESSOR),
   CIDADE: gerarRotasSistema(CIDADE),
   ALUNO: gerarRotasSistema(ALUNO),
+  DEPARTAMENTO: gerarRotasSistema(DEPARTAMENTO),
 };
 
 const LOGIN = 'login';

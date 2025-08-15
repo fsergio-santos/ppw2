@@ -7,7 +7,7 @@ import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
 import { ROTA } from 'src/commons/constants/url.sistema';
 import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
 import { Result } from 'src/commons/response/mensagem';
-import { AlunoRequest } from '../dto/request/alunto.request';
+import { AlunoRequest } from '../dto/request/aluno.request';
 import { AlunoResponse } from '../dto/response/aluno.response';
 import { AlunoServiceUpdate } from '../service/aluno.service.update';
 

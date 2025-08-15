@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
-import { Usuario } from 'src/usuario/entities/usuario.entity';
-import { UsuarioRequest } from 'src/usuario/dto/request/usuario.request';
 import { tratarErroBanco } from 'src/commons/banco/error.database';
-import { Aluno } from '../entities/aluno.entity';
-import { AlunoRequest } from '../dto/request/alunto.request';
-import { AlunoResponse } from '../dto/response/aluno.response';
+import { UsuarioRequest } from 'src/usuario/dto/request/usuario.request';
+import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { ConverterAluno } from '../dto/converter/aluno.converter';
+import { AlunoRequest } from '../dto/request/aluno.request';
+import { AlunoResponse } from '../dto/response/aluno.response';
+import { Aluno } from '../entities/aluno.entity';
 
 @Injectable()
 export class AlunoServiceCreate {

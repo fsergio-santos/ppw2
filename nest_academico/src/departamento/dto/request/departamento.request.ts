@@ -13,7 +13,7 @@ export class DepartamentoRequest {
   @MaxLength(20, {
     message: 'O tamanho máximo é de 20 caracteres para o código do Departamento',
   })
-  codDepartamento?: string = '';
+  codDepartamento: string = '';
 
   @ApiProperty({ description: 'Nome da Departamento ', example: 'Birigui' })
   @MaxLength(100, {
@@ -21,7 +21,7 @@ export class DepartamentoRequest {
   })
   @IsNotEmpty({ message: 'O nome da Departamento deve ser informado ' })
   @IsString()
-  nomeDepartamento?: string = '';
+  nomeDepartamento: string = '';
 
   constructor(data: Partial<DepartamentoRequest> = {}) {
     Object.assign(this, data);

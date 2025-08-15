@@ -1,28 +1,28 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateCidadeTable1755021370026 implements MigrationInterface {
+export class CreateDepartamentoTable1755119738731 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
         name: 'CIDADE',
         columns: [
           {
-            name: 'ID_CIDADE',
+            name: 'ID_DEPARTAMENTO',
             type: 'number',
             isPrimary: true,
             isNullable: false,
             isGenerated: true,
-            generationStrategy: "increment"
+            generationStrategy: 'increment',
           },
           {
-            name: 'COD_CIDADE',
+            name: 'COD_DEPARTAMENTO',
             type: 'varchar2',
             length: '10',
             isUnique: true,
             isNullable: false,
           },
           {
-            name: 'NOME_CIDADE',
+            name: 'NOME_DEPARTAMENTO',
             type: 'varchar2',
             length: '50',
             isNullable: true,
@@ -44,7 +44,6 @@ export class CreateCidadeTable1755021370026 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('CIDADE');
+    await queryRunner.dropTable('DEPARTAMENTO');
   }
 }
-
