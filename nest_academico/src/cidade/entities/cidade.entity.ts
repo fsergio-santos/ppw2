@@ -7,10 +7,10 @@ export class Cidade extends BaseEntity {
   @PrimaryColumn({ name: 'ID_CIDADE', type: 'number' })
   idCidade?: number;
 
-  @Column({ name: 'COD_CIDADE', type: 'varchar' })
+  @Column({ name: 'COD_CIDADE', type: 'varchar2', length: 20 })
   codCidade: string = '';
 
-  @Column({ name: 'NOME_CIDADE', type: 'varchar' })
+  @Column({ name: 'NOME_CIDADE', type: 'varchar2', length: 100 })
   nomeCidade: string = '';
 
   @OneToMany(() => Usuario, (usuario) => usuario.cidade)

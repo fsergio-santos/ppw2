@@ -7,7 +7,7 @@ import { AlunoModule } from 'src/aluno/aluno.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { CidadeModule } from 'src/cidade/cidade.module';
 import { ProfessorModule } from 'src/professor/professor.module';
-import { DepartamentoModule } from '../departamento/departamento.module';
+import { AcessoModule } from '../acesso/acesso.module';
 import { UsuarioModule } from '../usuario/usuario.module';
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -17,7 +17,7 @@ oracledb.initOracleClient({
   libDir: 'D:/arquivos/nds/aulas_javascript/oracle/instantclient',
 });
 
-const modules = [UsuarioModule, CidadeModule, ProfessorModule, AlunoModule, AuthModule, DepartamentoModule];
+const modules = [UsuarioModule, CidadeModule, ProfessorModule, AlunoModule, AuthModule, AcessoModule];
 
 @Module({
   imports: [

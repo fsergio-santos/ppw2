@@ -1,30 +1,31 @@
 import { Exclude } from 'class-transformer';
 import { Aluno } from 'src/aluno/entities/aluno.entity';
 import { Cidade } from 'src/cidade/entities/cidade.entity';
-import { Professor } from 'src/professor/entities/professor.entity';
-import { Entity, Column, OneToOne, ManyToOne, JoinColumn, PrimaryColumn } from 'typeorm';
-import { TIPO_USUARIO } from '../enum/tipo.usuario.enum';
-import { STATUS_USUARIO } from '../enum/status.usuario.enum';
 import { BaseEntity } from 'src/commons/entity/base.entity';
+import { Professor } from 'src/professor/entities/professor.entity';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm';
+import { Role } from '../../acesso/entities/role.entity';
+import { STATUS_USUARIO } from '../enum/status.usuario.enum';
+import { TIPO_USUARIO } from '../enum/tipo.usuario.enum';
 
 @Entity({ name: 'USUARIO' })
 export class Usuario extends BaseEntity {
   @PrimaryColumn({ name: 'ID_USUARIO', type: 'number' })
   idUsuario?: number;
 
-  @Column({ name: 'COD_USUARIO' })
+  @Column({ name: 'COD_USUARIO', type: 'varchar2', length: 20 })
   codUsuario: string = '';
 
-  @Column({ name: 'NOME_USUARIO' })
+  @Column({ name: 'NOME_USUARIO', type: 'varchar2', length: 100 })
   nomeUsuario: string = '';
 
-  @Column({ name: 'EMAIL', unique: true })
+  @Column({ name: 'EMAIL', type: 'varchar2', unique: true, length: 100 })
   email: string = '';
 
-  @Column({ name: 'SENHA' })
+  @Column({ name: 'SENHA', type: 'varchar2', length: 100 })
   senha: string = '';
 
-  @Column({ name: 'FOTO', nullable: true })
+  @Column({ name: 'FOTO', type: 'varchar2', nullable: true, length: 100 })
   foto: string = '';
 
   @Column({ name: 'TIPO', nullable: false, type: 'int' })
@@ -52,6 +53,14 @@ export class Usuario extends BaseEntity {
     cascade: ['insert', 'update', 'remove'],
   })
   aluno!: Aluno;
+
+  @ManyToMany(() => Role, (role) => role.usuarios, { eager: true })
+  @JoinTable({
+    name: 'USUARIO_ROLE',
+    joinColumn: { name: 'USUARIO_ID', referencedColumnName: 'ID_USUARIO' },
+    inverseJoinColumn: { name: 'ROLE_ID', referencedColumnName: 'ID_ROLE' },
+  })
+  roles!: Role[];
 
   constructor(data: Partial<Usuario> = {}) {
     super();

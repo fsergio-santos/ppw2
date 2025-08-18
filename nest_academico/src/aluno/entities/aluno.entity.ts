@@ -7,10 +7,10 @@ export class Aluno extends BaseEntity {
   @PrimaryColumn({ name: 'ID_ALUNO', type: 'number' })
   idAluno?: number = 0;
 
-  @Column({ name: 'COD_ALUNO', type: 'varchar', length: 50, nullable: false })
+  @Column({ name: 'COD_ALUNO', type: 'varchar2', length: 20, nullable: false })
   codAluno: string = '';
 
-  @Column({ name: 'NOME_ALUNO', type: 'varchar', length: 100, nullable: false })
+  @Column({ name: 'NOME_ALUNO', type: 'varchar2', length: 100, nullable: false })
   nomeAluno: string = '';
 
   @Column({ name: 'IDADE', type: 'number', nullable: true })
