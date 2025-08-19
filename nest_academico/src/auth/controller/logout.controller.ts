@@ -1,7 +1,7 @@
 import { Controller, HttpStatus, Post, Req, Res } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
-import { SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
+import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
 import { ROTA_AUTH } from 'src/commons/constants/url.sistema';
 import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
 import { MensagemSistema } from 'src/commons/response/mensagem.sistema';
@@ -10,6 +10,13 @@ import { MensagemSistema } from 'src/commons/response/mensagem.sistema';
 @Controller(ROTA_AUTH.BASE)
 export class LogoutController {
   @Post(ROTA_AUTH.LOGOUT)
+  @ApiOperation({ summary: MENSAGEM.USUARIO.LOGOUT })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: MENSAGEM.USUARIO.LOGOUT,
+    type: MensagemSistema,
+  })
+  @ApiProduces(MENSAGENS_GENERICAS.JSON_APPLICATION)
   logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
     res.clearCookie('accessToken', {
       httpOnly: true,

@@ -1,45 +1,60 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { ConfigType } from '@nestjs/config'; //
+import { ConfigType } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
-import { UsuarioServiceFindOne } from 'src/usuario/service/usuario.service.findone';
+import { Request } from 'express';
+import { Strategy } from 'passport-jwt';
+import { MENSAGENS_GENERICAS } from '../../commons/enum/mensagem.generica.enum';
+import { UsuarioBloqueadoException } from '../../commons/exceptions/error/usuario.bloqueado';
+import { STATUS_USUARIO } from '../../usuario/enum/status.usuario.enum';
+import { UsuarioServiceFindOne } from '../../usuario/service/usuario.service.findone';
 import jwtConfig from '../config/jwt.config';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    readonly jwtConfiguration: ConfigType<typeof jwtConfig>, // Injeta a configuração JWT
     private readonly usuarioServiceFindOne: UsuarioServiceFindOne,
+    readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {
     if (!jwtConfiguration.secret) {
       throw new Error('JWT_SECRET must be defined in environment variables or jwtConfig.');
     }
+
     super({
-      // 1. Onde o JWT será extraído: do cookie 'accessToken'
-      jwtFromRequest: ExtractJwt.fromExtractors([
-        (req) => {
-          let token = null;
-          if (req && req.cookies) {
-            token = req.cookies['accessToken']; // Acessa o cookie 'accessToken'
-          }
-          return token;
-        },
-      ]),
-      ignoreExpiration: false, // Não ignora a expiração do token
-      secretOrKey: jwtConfiguration.secret, // Usa o segredo da sua configuração
+      jwtFromRequest: JwtStrategy.extractJwt,
+      ignoreExpiration: false,
+      secretOrKey: jwtConfiguration.secret,
+      audience: jwtConfiguration.audience,
+      issuer: jwtConfiguration.issuer,
     });
   }
 
-  // 2. Método de validação do payload do token
-  async validate(payload: any) {
-    // payload.sub conterá o idUsuario que você definiu no signJwtAsync
-    const usuario = await this.usuarioServiceFindOne.findById(payload.sub); // Buscar usuário por ID
-
-    if (!usuario) {
-      throw new UnauthorizedException('Usuário não encontrado ou token inválido.');
+  private static extractJwt(req: Request): string | null {
+    if (req?.cookies?.['accessToken']) {
+      return req.cookies['accessToken'];
     }
 
-    // Retorna o usuário. Ele será anexado ao `req.user` nos controladores protegidos.
-    return usuario;
+    const authHeader = req.headers?.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      return authHeader.split(' ')[1];
+    }
+
+    return null;
+  }
+
+  async validate(payload: any) {
+    const usuario = await this.usuarioServiceFindOne.findById(payload.sub);
+
+    if (!usuario) {
+      throw new UnauthorizedException(MENSAGENS_GENERICAS.NAO_ENCONTRADO);
+    }
+
+    if (usuario.ativo === STATUS_USUARIO.BLOQUEADO) {
+      throw new UsuarioBloqueadoException(MENSAGENS_GENERICAS.ACESSO_PROIBIDO);
+    }
+
+    return {
+      ...usuario,
+      roles: usuario.roles,
+    };
   }
 }

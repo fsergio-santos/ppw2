@@ -24,7 +24,7 @@ export class ControleAcessoGuard implements CanActivate {
     if (!requirements.length) return true;
 
     const request = context.switchToHttp().getRequest();
-    const user = request.user; // user.role deve estar no request (middleware/jwt)
+    const user = request.user;
 
     return requirements.every((req) =>
       this.acessoControleService.canAccess(user.role, req.action, req.possession, req.resource),

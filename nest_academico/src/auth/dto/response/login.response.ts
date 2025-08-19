@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
+import { Role } from '../../../acesso/entities/role.entity';
 
 export class LoginResponse {
   @Expose()
@@ -9,6 +10,10 @@ export class LoginResponse {
   @Expose()
   @ApiProperty({ description: 'Nome do usuário ' })
   nome: string = '';
+
+  @Expose()
+  @ApiProperty({ description: 'Roles do usuário ' })
+  roles!: Role[];
 
   accessToken: string = '';
 

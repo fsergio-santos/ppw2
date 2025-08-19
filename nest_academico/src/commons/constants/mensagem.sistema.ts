@@ -51,6 +51,9 @@ function gerarMensagensEntidade(entityKey: string): MensagensEntidade {
     [TipoOperacaoEntidade.OPERACAO_POR_ID]: `Mostra os dados - ${nomeSingularCapitalizado} - por um identificador único`,
     [TipoOperacaoEntidade.OPERACAO_EXCLUIR]: `Exlui os dados - ${nomeSingularCapitalizado} - por um identificador único`,
     [TipoOperacaoEntidade.OPERACAO_LISTAR]: `Listagem dos dados - ${nomePluralLower} `,
+    [TipoOperacaoEntidade.LOGIN]: `Login do ${nomeSingularCapitalizado} no sistema`,
+    [TipoOperacaoEntidade.LOGOUT]: `Logout do ${nomeSingularCapitalizado} no sistema`,
+    [TipoOperacaoEntidade.PROFILE]: `${nomeSingularCapitalizado} logado no sistema`,
   };
 }
 

@@ -6,6 +6,7 @@ import { Auth } from 'src/auth/entities/auth.entity';
 import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
 import { EntityNotFoundException } from 'src/commons/exceptions/error/entity.exception';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
+import { Role } from '../../acesso/entities/role.entity';
 
 @Injectable()
 export class TokenHelperService {
@@ -31,10 +32,10 @@ export class TokenHelperService {
       throw new EntityNotFoundException(MENSAGENS_GENERICAS.LOGIN_NAO_EXISTE);
     }
 
-    const { idUsuario, email } = usuario;
+    const { idUsuario, nomeUsuario, email, roles } = usuario;
 
     const [accessToken, refreshToken] = await Promise.all([
-      this.signJwtAsync(idUsuario, this.jwtConfiguration.jwtTTL, { email }),
+      this.signJwtAsync(idUsuario, this.jwtConfiguration.jwtTTL, { nomeUsuario, email, roles }),
       this.signJwtAsync(idUsuario, this.jwtConfiguration.jwtRefreshTTL),
     ]);
 
@@ -53,9 +54,14 @@ export class TokenHelperService {
     }
   }
 
-  buildAuth(usuario: { email: string }, tokens: { accessToken: string; refreshToken: string }): Auth {
+  buildAuth(
+    usuario: { email: string; nomeUsuario: string; roles: Role[] },
+    tokens: { accessToken: string; refreshToken: string },
+  ): Auth {
     const auth = new Auth();
     auth.email = usuario.email;
+    auth.nome = usuario.nomeUsuario;
+    auth.roles = usuario.roles;
     auth.accessToken = tokens.accessToken;
     auth.refreshToken = tokens.refreshToken;
     return auth;
