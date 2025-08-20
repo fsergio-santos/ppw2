@@ -188,3 +188,7 @@ BEGIN
   :NEW.UPDATE_AT := CURRENT_TIMESTAMP;
 END;
 /
+
+
+drives do oracle 
+//https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html

@@ -2,7 +2,6 @@ import { forwardRef, Module } from '@nestjs/common';
 import { ConfigModule, ConfigType } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { EmailModule } from 'src/email/email.module';
 import { UsuarioModule } from 'src/usuario/usuario.module';
 import jwtConfig from './config/jwt.config';
@@ -25,9 +24,33 @@ import { ValidarUsuarioService } from './services/validar.usuario.service';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { LocalStrategy } from './strategy/local.strategy';
 
+const authControllers = [
+  LoginController,
+  RefreshTokenController,
+  ChangePasswordController,
+  RegisterUsuarioController,
+  ForgotPasswordController,
+  LogoutController,
+  ProfileController,
+];
+
+const authServices = [
+  LoginService,
+  JwtStrategy,
+  TokenHelperService,
+  RefreshTokenService,
+  ChangePasswordService,
+  RegisterUsuarioService,
+  ForgotPasswordService,
+  ValidarUsuarioService,
+  JwtStrategy,
+  LocalStrategy,
+];
+
 @Module({
   imports: [
     forwardRef(() => UsuarioModule),
+    ConfigModule.forFeature(jwtConfig),
     //TypeOrmModule.forFeature([Usuario]),
     JwtModule.registerAsync({
       imports: [ConfigModule.forFeature(jwtConfig)],
@@ -42,32 +65,16 @@ import { LocalStrategy } from './strategy/local.strategy';
     }),
     EmailModule,
     PassportModule,
+    ConfigModule,
   ],
-  controllers: [
-    LoginController,
-    RefreshTokenController,
-    ChangePasswordController,
-    RegisterUsuarioController,
-    ForgotPasswordController,
-    LogoutController,
-    ProfileController,
-  ],
+  controllers: [...authControllers],
   providers: [
     {
       provide: HashingService,
       useClass: BcryptService,
     },
-    LoginService,
-    JwtStrategy,
-    TokenHelperService,
-    RefreshTokenService,
-    ChangePasswordService,
-    RegisterUsuarioService,
-    ForgotPasswordService,
-    ValidarUsuarioService,
-    JwtStrategy,
-    LocalStrategy,
+    ...authServices,
   ],
-  exports: [LoginService, PassportModule, HashingService, JwtModule, ConfigModule, TypeOrmModule],
+  exports: [LoginService, PassportModule, HashingService, JwtModule],
 })
 export class AuthModule {}

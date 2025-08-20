@@ -1,5 +1,5 @@
 import { Body, Controller, HttpStatus, Post, Req } from '@nestjs/common';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
 import { ROTA_AUTH } from 'src/commons/constants/url.sistema';
@@ -15,7 +15,20 @@ import { ResetPasswordService } from '../services/reset.password.service';
 export class ResetPasswordController {
   constructor(private readonly resetPasswordService: ResetPasswordService) {}
   @Post(ROTA_AUTH.RESET_PASSWORD)
-  @ApiOkResponse({ description: MENSAGEM.AUTH.ATUALIZAR })
+  @ApiOperation({ summary: MENSAGEM.USUARIO.OPERACAO_ATUALIZAR })
+  @ApiParam({
+    name: 'ResetPasswordRequest',
+    description: MENSAGEM.USUARIO.OPERACAO_ATUALIZAR,
+    required: true,
+    type: ResetPasswordRequest,
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: MENSAGENS_GENERICAS.RESET_PASSWORD,
+    type: MensagemSistema,
+  })
+  @ApiConsumes(MENSAGENS_GENERICAS.JSON_APPLICATION)
+  @ApiProduces(MENSAGENS_GENERICAS.JSON_APPLICATION)
   async forgotPassword(
     @Body() resetPasswordRequest: ResetPasswordRequest,
     @Req() req: Request,

@@ -1,7 +1,6 @@
-import { Body, Controller, HttpStatus, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Req } from '@nestjs/common';
 import { ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
-import { AuthTokenGuard } from 'src/auth/guard/auth.token.guard';
 import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
 import { ROTA } from 'src/commons/constants/url.sistema';
 import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
@@ -11,7 +10,6 @@ import { CidadeRequest } from '../dto/request/cidade.request';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceCreate } from '../service/cidade.service.create';
 
-@UseGuards(AuthTokenGuard)
 @ApiTags(SHOW_ENTITY.CIDADE)
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerCreate {

@@ -41,7 +41,7 @@ const usuarioServices = [
     TypeOrmModule.forFeature([Usuario, Cidade]),
     AlunoModule,
     ProfessorModule,
-    CidadeModule,
+    forwardRef(() => CidadeModule),
     forwardRef(() => AuthModule),
   ],
   controllers: [...usuarioControllers],

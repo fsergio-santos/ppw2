@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigType } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
@@ -13,6 +13,7 @@ import jwtConfig from '../config/jwt.config';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     private readonly usuarioServiceFindOne: UsuarioServiceFindOne,
+    @Inject(jwtConfig.KEY)
     readonly jwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {
     if (!jwtConfiguration.secret) {

@@ -31,7 +31,7 @@ const cidadeServices = [
 ];
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Cidade]), forwardRef(() => UsuarioModule), AuthModule],
+  imports: [TypeOrmModule.forFeature([Cidade]), forwardRef(() => UsuarioModule), forwardRef(() => AuthModule)],
   controllers: [...cidadeControllers],
   providers: [...cidadeServices],
   exports: [TypeOrmModule, ...cidadeServices],
