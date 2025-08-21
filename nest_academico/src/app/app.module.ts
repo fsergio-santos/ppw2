@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 
+import { CacheModule } from '@nestjs/cache-manager';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
@@ -21,6 +22,7 @@ const modules = [UsuarioModule, CidadeModule, ProfessorModule, AlunoModule, Auth
 
 @Module({
   imports: [
+    CacheModule.register({ ttl: 3600, isGlobal: true }),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({

@@ -13,7 +13,7 @@ export interface RoleRequirement {
 export const ROLES_KEY = 'roles';
 
 @Injectable()
-export class ControleAcessoGuard implements CanActivate {
+export class CAGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly acessoControleService: AcessoControleService,

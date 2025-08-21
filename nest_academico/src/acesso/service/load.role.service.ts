@@ -35,9 +35,11 @@ export class LoadRoleService {
   constructor(@InjectRepository(Permissions) private readonly permissionsRepository: Repository<Permissions>) {}
 
   async getRolePermissions(): Promise<RolesBuilder> {
-    const permissions = await this.permissionsRepository.find({
-      relations: ['role', 'resource'], // garante que role e resource vêm juntos
-    });
+    const permissions = await this.permissionsRepository
+      .createQueryBuilder('permission')
+      .leftJoinAndSelect('permission.role', 'role')
+      .leftJoinAndSelect('permission.resource', 'resource')
+      .getMany();
 
     const rolesBuilder = new RolesBuilder();
     permissions.forEach((p) => {
