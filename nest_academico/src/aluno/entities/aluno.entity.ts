@@ -1,10 +1,10 @@
 import { BaseEntity } from 'src/commons/entity/base.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'ALUNO' })
 export class Aluno extends BaseEntity {
-  @PrimaryColumn({ name: 'ID_ALUNO', type: 'number' })
+  @PrimaryGeneratedColumn('increment', { name: 'ID_ALUNO', type: 'number' })
   idAluno?: number = 0;
 
   @Column({ name: 'COD_ALUNO', type: 'varchar2', length: 20, nullable: false })
@@ -20,7 +20,7 @@ export class Aluno extends BaseEntity {
     nullable: true,
     cascade: ['insert', 'update'],
   })
-  @JoinColumn({ name: 'ID_USUARIO' })
+  @JoinColumn({ name: 'ID_USUARIO', referencedColumnName: 'idUsuario' })
   usuario!: Usuario;
 
   constructor(data: Partial<Aluno> = {}) {

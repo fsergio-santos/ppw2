@@ -1,11 +1,11 @@
-import { Column, Entity, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from '../../commons/entity/base.entity';
 import { Usuario } from '../../usuario/entities/usuario.entity';
 import { Permissions } from './permission.entity';
 
 @Entity({ name: 'ROLE' })
 export class Role extends BaseEntity {
-  @PrimaryColumn({ name: 'ID_ROLE', type: 'number' })
+  @PrimaryGeneratedColumn('increment', { name: 'ID_ROLE', type: 'number' })
   idRole: number = 0;
 
   @Column({ name: 'NOME_ROLE', type: 'varchar2', length: 50, unique: true, nullable: false })

@@ -1,10 +1,10 @@
 import { BaseEntity } from 'src/commons/entity/base.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('CIDADE')
 export class Cidade extends BaseEntity {
-  @PrimaryColumn({ name: 'ID_CIDADE', type: 'number' })
+  @PrimaryGeneratedColumn('increment', { name: 'ID_CIDADE', type: 'number' })
   idCidade?: number;
 
   @Column({ name: 'COD_CIDADE', type: 'varchar2', length: 20 })

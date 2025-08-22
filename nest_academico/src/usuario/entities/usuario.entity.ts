@@ -3,14 +3,23 @@ import { Aluno } from 'src/aluno/entities/aluno.entity';
 import { Cidade } from 'src/cidade/entities/cidade.entity';
 import { BaseEntity } from 'src/commons/entity/base.entity';
 import { Professor } from 'src/professor/entities/professor.entity';
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Role } from '../../acesso/entities/role.entity';
 import { STATUS_USUARIO } from '../enum/status.usuario.enum';
 import { TIPO_USUARIO } from '../enum/tipo.usuario.enum';
 
 @Entity({ name: 'USUARIO' })
 export class Usuario extends BaseEntity {
-  @PrimaryColumn({ name: 'ID_USUARIO', type: 'number' })
+  @PrimaryGeneratedColumn('increment', { name: 'ID_USUARIO', type: 'number' })
   idUsuario?: number;
 
   @Column({ name: 'COD_USUARIO', type: 'varchar2', length: 20 })
@@ -57,8 +66,8 @@ export class Usuario extends BaseEntity {
   @ManyToMany(() => Role, (role) => role.usuarios, { eager: true })
   @JoinTable({
     name: 'USUARIO_ROLE',
-    joinColumn: { name: 'USUARIO_ID', referencedColumnName: 'ID_USUARIO' },
-    inverseJoinColumn: { name: 'ROLE_ID', referencedColumnName: 'ID_ROLE' },
+    joinColumn: { name: 'USUARIO_ID', referencedColumnName: 'idUsuario' },
+    inverseJoinColumn: { name: 'ROLE_ID', referencedColumnName: 'idRole' },
   })
   roles!: Role[];
 

@@ -1,11 +1,11 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from '../../commons/entity/base.entity';
 import { Resource } from './resource.entity';
 import { Role } from './role.entity';
 
 @Entity('PERMISSIONS')
 export class Permissions extends BaseEntity {
-  @PrimaryColumn({ name: 'ID_PERMISSION', type: 'int' })
+  @PrimaryGeneratedColumn('increment', { name: 'ID_PERMISSION', type: 'number' })
   idPermission: number = 0;
 
   @ManyToOne(() => Role, (role) => role.permissions, { eager: true })
@@ -13,7 +13,7 @@ export class Permissions extends BaseEntity {
   role!: Role;
 
   @ManyToOne(() => Resource, (resource) => resource.permissions, { eager: true })
-  @JoinColumn({ name: 'RESOURCE_ID' })
+  @JoinColumn({ name: 'RECURSO_ID' })
   resource!: Resource;
 
   @Column({ name: 'ACTION', type: 'varchar2', length: 50 })
