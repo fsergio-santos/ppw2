@@ -12,7 +12,7 @@ export class CreateCidadeTable1755021370026 implements MigrationInterface {
             isPrimary: true,
             isNullable: false,
             isGenerated: true,
-            generationStrategy: "increment"
+            generationStrategy: 'increment',
           },
           {
             name: 'COD_CIDADE',
@@ -41,10 +41,18 @@ export class CreateCidadeTable1755021370026 implements MigrationInterface {
       }),
       true,
     );
+    await queryRunner.query(`
+            CREATE OR REPLACE TRIGGER "TRG_CIDADE_UPDATED_AT"
+            BEFORE UPDATE ON "CIDADE"
+            FOR EACH ROW
+            BEGIN
+                :new."UPDATED_AT" := CURRENT_TIMESTAMP;
+            END;
+        `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`DROP TRIGGER "TRG_CIDADE_UPDATED_AT"`);
     await queryRunner.dropTable('CIDADE');
   }
 }
-

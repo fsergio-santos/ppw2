@@ -5,6 +5,7 @@ import Box from '../../components/box/Box';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import LinkButton from '../../components/LinkButton/LinkButton';
+import useReset from '../../service/connection/reset/Reset';
 import {
   BUTTON_SIZE,
   MESSAGE_CANCEL_FORM,
@@ -13,19 +14,17 @@ import {
   USUARIO_SHOW,
   WARNING,
 } from '../../service/constant/Constantes';
-
-import { useValidarDadosReset } from '../../rules/ResetValidationRules';
 import { ROTA_AUT } from '../../service/constant/Url';
 import './reset.css';
 
 const ResetPassword = () => {
-  const { model, setModel, errors, handleChangeField, handleBlurField, validarFormulario, setServerErrors } =
-    useValidarDadosReset();
+  const { model, errors, handleChangeField, handleBlurField, handleSubmit } = useReset();
   return (
     <Fragment>
       <Box maxWidth="850px">
         <h1>Alterar Senha</h1>
-        <form>
+        <form onSubmit={handleSubmit}>
+          ''
           <div className="p-2">
             <Input
               id="senha"
