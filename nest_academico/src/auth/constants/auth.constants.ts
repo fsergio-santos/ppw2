@@ -6,3 +6,4 @@ export interface ExtendedRequest extends Request {
 
 export const REQUEST_TOKEN_PAYLOAD_KEY = 'REQUEST_TOKEN_PAYLOAD_KEY';
 export const ROUTE_POLICY_KEY = 'ROUTE_POLICY_KEY';
+export const IS_PUBLIC_KEY = 'IS_PUBLIC_KEY';

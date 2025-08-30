@@ -6,6 +6,7 @@ import { ROTA_AUTH } from 'src/commons/constants/url.sistema';
 import { Result } from 'src/commons/response/mensagem';
 import { MensagemSistema } from 'src/commons/response/mensagem.sistema';
 import { MENSAGENS_GENERICAS } from '../../commons/enum/mensagem.generica.enum';
+import { Public } from '../decorator/public.decorator';
 import { ForgotPasswordRequest } from '../dto/request/forgot.password.request';
 import { ForgotPasswordService } from '../services/forgot.password.service';
 
@@ -14,6 +15,8 @@ import { ForgotPasswordService } from '../services/forgot.password.service';
 @Controller()
 export class ForgotPasswordController {
   constructor(private readonly forgotPasswordService: ForgotPasswordService) {}
+
+  @Public()
   @Post(ROTA_AUTH.FORGOT_PASSWORD)
   @ApiOperation({ summary: MENSAGEM.USUARIO.ATUALIZAR })
   @ApiParam({

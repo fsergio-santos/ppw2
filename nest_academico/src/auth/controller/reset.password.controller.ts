@@ -1,5 +1,12 @@
 import { Body, Controller, HttpStatus, Post, Req } from '@nestjs/common';
-import { ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiConsumes,
+  ApiOperation,
+  ApiParam,
+  ApiProduces,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Request } from 'express';
 import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
 import { ROTA_AUTH } from 'src/commons/constants/url.sistema';
@@ -33,10 +40,16 @@ export class ResetPasswordController {
     @Body() resetPasswordRequest: ResetPasswordRequest,
     @Req() req: Request,
   ): Promise<Result<null> | null> {
-    const response = await this.resetPasswordService.resetPassword(resetPasswordRequest);
-    if (response) {
-      return MensagemSistema.showMensagem(HttpStatus.OK, MENSAGENS_GENERICAS.RESET_PASSWORD, null, req.path, null);
-    }
-    return null;
+    const response =
+      await this.resetPasswordService.resetPassword(resetPasswordRequest);
+    return response
+      ? MensagemSistema.showMensagem(
+          HttpStatus.OK,
+          MENSAGENS_GENERICAS.RESET_PASSWORD,
+          null,
+          req.path,
+          null,
+        )
+      : null;
   }
 }

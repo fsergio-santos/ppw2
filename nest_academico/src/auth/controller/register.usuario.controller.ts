@@ -6,6 +6,7 @@ import { ROTA_AUTH } from 'src/commons/constants/url.sistema';
 import { Result } from 'src/commons/response/mensagem';
 import { MensagemSistema } from 'src/commons/response/mensagem.sistema';
 import { MENSAGENS_GENERICAS } from '../../commons/enum/mensagem.generica.enum';
+import { Public } from '../decorator/public.decorator';
 import { RegisterUsuarioRequest } from '../dto/request/register.usuario.request';
 import { RegisterUsuarioService } from '../services/register.usuario.service';
 
@@ -14,6 +15,8 @@ import { RegisterUsuarioService } from '../services/register.usuario.service';
 @Controller()
 export class RegisterUsuarioController {
   constructor(private readonly registerUsuarioService: RegisterUsuarioService) {}
+
+  @Public()
   @Post(ROTA_AUTH.REGISTER)
   @ApiOperation({ summary: MENSAGEM.USUARIO.OPERACAO_ATUALIZAR })
   @ApiParam({

@@ -1,11 +1,26 @@
-import { Controller, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
-import { ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  Controller,
+  HttpStatus,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiConsumes,
+  ApiOperation,
+  ApiParam,
+  ApiProduces,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Request, Response } from 'express';
 import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
 import { ROTA_AUTH } from 'src/commons/constants/url.sistema';
 import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
 import { MensagemSistema } from 'src/commons/response/mensagem.sistema';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
+import { Public } from '../decorator/public.decorator';
 import { LoginRequest } from '../dto/request/auth.request';
 import { LoginResponse } from '../dto/response/login.response';
 import { LocalAuthGuard } from '../guard/local.auth.guard';
@@ -17,6 +32,7 @@ import { LoginService } from '../services/auth.service';
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
+  @Public()
   @Post(ROTA_AUTH.LOGIN)
   @ApiOperation({ summary: MENSAGEM.USUARIO.LOGIN })
   @ApiParam({
@@ -40,18 +56,28 @@ export class LoginController {
     if (response) {
       res.cookie('accessToken', response.accessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development',
+        secure:
+          process.env.NODE_ENV === 'production' ||
+          process.env.NODE_ENV === 'development',
         sameSite: 'lax',
         maxAge: response.expiresIn * 1000,
       });
 
       res.cookie('refreshToken', response.refreshToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development',
+        secure:
+          process.env.NODE_ENV === 'production' ||
+          process.env.NODE_ENV === 'development',
         sameSite: 'lax',
         maxAge: response.refreshExpiresIn * 1000,
       });
     }
-    return MensagemSistema.showMensagem(HttpStatus.OK, null, response, req.path, null);
+    return MensagemSistema.showMensagem(
+      HttpStatus.OK,
+      null,
+      response,
+      req.path,
+      null,
+    );
   }
 }
