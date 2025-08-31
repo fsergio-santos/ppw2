@@ -47,7 +47,7 @@ const Layout = () => {
         <SideBar sidebar={toggle} /> {/* Passa o estado 'toggle' para o SideBar */}
         {/* A classe 'app-content-active' significa que o sidebar está recolhido,
             então o conteúdo principal se expande. */}
-        <main className={toggle ? 'app-content' : 'app-content  active'}>
+        <main className={toggle ? 'app-content active' : 'app-content'}>
           <Outlet />
         </main>
       </div>

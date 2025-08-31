@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
+import '../../assets/css/usuario.css';
 import Box from '../../components/box/Box';
 import Form from '../../components/form/Form';
 import Input from '../../components/input/Input';
@@ -18,7 +19,6 @@ import {
   WARNING,
 } from '../../service/constant/Constantes';
 import { ROTA } from '../../service/constant/Url';
-import './usuario.css';
 
 import { useParams } from 'react-router-dom';
 import FotoConsulta from '../../components/image/FotoConsulta';

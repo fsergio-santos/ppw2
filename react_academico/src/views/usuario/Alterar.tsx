@@ -35,7 +35,7 @@ import { ROTA, URL_DELETAR_FOTO, URL_SALVAR_FOTO } from '../../service/constant/
 import { MENSAGEM_SISTEMA } from '../../service/errors/MensagemSistema';
 import type { Cidade } from '../../type/Cidade';
 import { camposObrigatoriosDoUsuario, mensagensCamposObrigatoriosDoUsuario, TIPO_USUARIO } from '../../type/Usuario';
-import './usuario.css';
+import '../../assets/css/usuario.css';
 
 const navegacaoUsuario = {
   titulo: USUARIO_SHOW,

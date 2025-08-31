@@ -29,7 +29,7 @@ import {
 import { ROTA } from '../../service/constant/Url';
 import { MENSAGEM_SISTEMA } from '../../service/errors/MensagemSistema';
 import { camposObrigatoriosDoUsuario, mensagensCamposObrigatoriosDoUsuario, TIPO_USUARIO } from '../../type/Usuario';
-
+import '../../assets/css/usuario.css';
 const navegacaoModel = {
   titulo: USUARIO_SHOW,
   descricao: `Excluir ${USUARIO_SHOW} do sistema`,

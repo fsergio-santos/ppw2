@@ -1,0 +1,232 @@
+/*   definição css para o botão  geral */
+.btn {
+  display: inline-flex; /* ← muda aqui */
+  align-items: center; /* ← centraliza verticalmente */
+  justify-content: center; /* ← centraliza horizontalmente (para ícone único) */
+  gap: 0.5rem; /* ← espaçamento entre ícone e texto */
+
+  padding: 0.75rem 0.375rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.5;
+  /* color:#212529; */
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: 0.0625rem solid #dee2e6;
+  border-radius: 0.375rem;
+  background-color: transparent;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.btn-label {
+  display: inline-block;
+}
+
+/* definição para o botão de sucesso */
+.btn-success {
+  color: var(--text-white);
+  background: var(--bg-success);
+  border-color: var(--bg-success);
+}
+
+.btn-success:hover,
+.btn-success:disabled {
+  color: var(--text-white);
+  background: var(--btn-hover-success);
+  border-color: var(--btn-hover-success);
+}
+
+.btn-success:focus {
+  box-shadow: rgba(60, 153, 110);
+}
+
+.btn-success:active {
+  color: var(--text-white);
+  background: #146c43;
+  border-color: #13653f;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.btn-success:disabled {
+  background: #198754;
+  border-color: #198754;
+}
+
+/* definição do botão info */
+.btn-info {
+  color: var(--text-dark);
+  background: var(--bg-info);
+  border-color: var(--bg-info);
+}
+
+.btn-info:hover,
+.btn-info:disabled {
+  color: var(--text-dark);
+  background: var(--btn-hover-info);
+  border-color: var(--btn-hover-info);
+}
+
+.btn-info:focus {
+  box-shadow: rgb(11, 172, 204);
+}
+
+.btn-info:active {
+  color: var(--text-dark);
+  background: var(--bg-info);
+  border-color: var(--bg-info);
+  box-shadow: inset 0 0.1875rem 0.3125rem rgba(0, 0, 0, 0.125);
+}
+
+.btn-info:disabled {
+  background: var(--bg-info);
+  border-color: var(--bg-info);
+}
+
+/* definição do botão warning */
+
+.btn-warning {
+  color: var(--text-black);
+  background: var(--bg-warning);
+  border-color: var(--bg-warning);
+}
+
+.btn-warning:hover,
+.btn-warning:disabled {
+  color: var(--text-black);
+  background: var(--btn-hover-warning);
+  border-color: var(--btn-hover-warning);
+}
+
+.btn-warning:focus {
+  box-shadow: rgb(217, 164, 6);
+}
+
+.btn-warning:active {
+  color: var(--text-black);
+  background: var(--btn-warning);
+  border-color: var(--btn-warning);
+  box-shadow: inset 0 0.1875rem 0.3125rem rgba(0, 0, 0, 0.125);
+}
+
+.btn-warning:disabled {
+  background: var(--btn-warning);
+  border-color: var(--btn-warning);
+}
+
+/* definição do botão danger */
+
+.btn-danger {
+  color: var(--text-white);
+  background: var(--bg-danger);
+  border-color: var(--bg-danger);
+}
+
+.btn-danger:hover,
+.btn-danger:disabled {
+  color: var(--text-white);
+  background: var(--btn-hover-danger);
+  border-color: var(--btn-hover-danger);
+}
+
+.btn-danger:focus {
+  box-shadow: rgb(225, 83, 97);
+}
+
+.btn-danger:active {
+  color: var(--text-white);
+  background: var(--btn-danger);
+  border-color: var(--btn-danger);
+  box-shadow: inset 0 0.1875rem 0.3125rem rgba(0, 0, 0, 0.125);
+}
+
+.btn-danger:disabled {
+  background: var(--btn-danger);
+  border-color: var(--btn-danger);
+}
+
+/* definição do botão search */
+
+.btn-search {
+  color: var(--text-white);
+  background: var(--bg-primary);
+  border-color: var(--bg-primary);
+}
+
+.btn-search:hover,
+.btn-search:disabled {
+  color: var(--text-white);
+  background: var(--btn-hover-search);
+  border-color: var(--btn-hover-search);
+}
+
+.btn-search:focus {
+  box-shadow: rgb(225, 83, 97);
+}
+
+.btn-search:active {
+  color: var(--text-white);
+  background: var(--btn-search);
+  border-color: var(--btn-search);
+  box-shadow: inset 0 0.1875rem 0.3125rem rgba(0, 0, 0, 0.125);
+}
+
+.btn-search:disabled {
+  background: var(--btn-search);
+  border-color: var(--btn-search);
+}
+
+/* definição do tamanho dos botões */
+.btn-sm,
+.btn-group-sm > .btn {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 0.2rem;
+}
+
+.btn-md,
+.btn-group-md > .btn {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 1rem;
+  border-radius: 0.375rem;
+}
+
+.btn-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--bg-danger);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  font-family: 'IBM Plex Mono', monospace;
+  border-radius: 50%;
+  cursor: pointer;
+}

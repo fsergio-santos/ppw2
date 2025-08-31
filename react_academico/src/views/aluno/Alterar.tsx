@@ -4,8 +4,8 @@ import * as MdIcons from 'react-icons/md';
 
 import Loading from '../../components/loading/Loading';
 
+import '../../assets/css/usuario.css';
 import Form from '../../components/form/Form';
-import './usuario.css';
 
 import Box from '../../components/box/Box';
 

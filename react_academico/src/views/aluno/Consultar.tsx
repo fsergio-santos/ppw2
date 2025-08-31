@@ -1,10 +1,11 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as MdIcons from 'react-icons/md';
-import Loading from '../../components/loading/Loading';
-import './usuario.css';
-import Form from '../../components/form/Form';
+import '../../assets/css/usuario.css';
 import Box from '../../components/box/Box';
+import Form from '../../components/form/Form';
+import Input from '../../components/input/Input';
+import Loading from '../../components/loading/Loading';
 import { useValidarDadosAluno } from '../../rules/AlunoValidationRules';
 import {
   ALUNO_SHOW,
@@ -18,15 +19,14 @@ import {
   WARNING,
 } from '../../service/constant/Constantes';
 import { ROTA } from '../../service/constant/Url';
-import Input from '../../components/input/Input';
 
+import { useParams } from 'react-router-dom';
+import FotoConsulta from '../../components/image/FotoConsulta';
 import LinkButton from '../../components/LinkButton/LinkButton';
 import { useAlert } from '../../context/AlertContexto';
 import useGetAluno from '../../service/connection/aluno/GetAluno';
-import { useParams } from 'react-router-dom';
-import FotoConsulta from '../../components/image/FotoConsulta';
-import { camposObrigatoriosDoAluno, mensagensCamposObrigatoriosDoAluno } from '../../type/Aluno';
 import { MENSAGEM_SISTEMA } from '../../service/errors/MensagemSistema';
+import { camposObrigatoriosDoAluno, mensagensCamposObrigatoriosDoAluno } from '../../type/Aluno';
 
 const navegacaoAluno = {
   titulo: ALUNO_SHOW,
@@ -53,9 +53,9 @@ const Consultar = () => {
             camposObrigatoriosDoAluno,
             mensagensCamposObrigatoriosDoAluno,
           );
-          if (errosValidacao){
+          if (errosValidacao) {
             setServerErrors(errosValidacao);
-          }  
+          }
           setModel(data.dados);
         }
       }
