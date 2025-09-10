@@ -1,7 +1,7 @@
 import { HttpStatus, UnprocessableEntityException, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { ApiResponseOptions, DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import cookieParser from 'cookie-parser';
+import * as cookieParser from 'cookie-parser';
 import { AlunoResponse } from './aluno/dto/response/aluno.response';
 import { AppModule } from './app/app.module';
 import { CidadeResponse } from './cidade/dto/response/cidade.response';
@@ -81,7 +81,7 @@ async function bootstrap(): Promise<void> {
 
   SwaggerModule.setup('docs', app, document);
 
-  await app.listen(process.env.PORT ?? 8000);
+  await app.listen(process.env.PORT ?? 5000);
 }
 
 bootstrap().catch((err) => {
