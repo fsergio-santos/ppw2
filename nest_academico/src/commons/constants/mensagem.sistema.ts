@@ -54,6 +54,7 @@ function gerarMensagensEntidade(entityKey: string): MensagensEntidade {
     [TipoOperacaoEntidade.LOGIN]: `Login do ${nomeSingularCapitalizado} no sistema`,
     [TipoOperacaoEntidade.LOGOUT]: `Logout do ${nomeSingularCapitalizado} no sistema`,
     [TipoOperacaoEntidade.PROFILE]: `${nomeSingularCapitalizado} logado no sistema`,
+    [TipoOperacaoEntidade.JACADASTRADO]: `${nomeSingularCapitalizado} já cadastgrado no sistema `,
   };
 }
 

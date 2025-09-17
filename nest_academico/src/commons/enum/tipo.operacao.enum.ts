@@ -13,4 +13,5 @@ export enum TipoOperacaoEntidade {
   LOGIN = 'LOGIN',
   LOGOUT = 'LOGOUT',
   PROFILE = 'PROFILE',
+  JACADASTRADO = 'JACADASTRADO',
 }

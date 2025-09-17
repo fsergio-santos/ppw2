@@ -16,15 +16,15 @@ import { CidadeServiceCreate } from '../service/cidade.service.create';
 
 @ApiTags(SHOW_ENTITY.CIDADE)
 @Controller(ROTA.CIDADE.BASE)
-@UseGuards(AuthGuard('jwt'), CAGuard)
+//@UseGuards(AuthGuard('jwt'), CAGuard)
 export class CidadeControllerCreate {
   constructor(private readonly cidadeService: CidadeServiceCreate) {}
 
-  @UseRoles({
-    resource: SHOW_ENTITY.CIDADE,
-    action: Action.CREATE,
-    possession: Possession.OWN,
-  })
+  // @UseRoles({
+  //   resource: SHOW_ENTITY.CIDADE,
+  //   action: Action.CREATE,
+  //   possession: Possession.OWN,
+  // })
   @Post(ROTA.CIDADE.CRIAR)
   @ApiOperation({ summary: MENSAGEM.CIDADE.OPERACAO_CRIAR })
   @ApiParam({

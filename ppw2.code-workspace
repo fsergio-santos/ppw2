@@ -33,7 +33,7 @@
     "editor.renderControlCharacters": true,
     "editor.tabSize": 2,
     "editor.renderLineHighlight": "gutter",
-    "editor.rulers": [120],
+    "editor.rulers": [100],
     "editor.detectIndentation": true,
     "editor.snippetSuggestions": "bottom",
     "editor.wordBasedSuggestions": "off",

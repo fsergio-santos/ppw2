@@ -19,8 +19,8 @@ import { LoadRoleService } from './service/load.role.service';
     LoadRoleService,
     {
       provide: RolesBuilder,
-      useFactory: async (loadRoleService: LoadRoleService): Promise<RolesBuilder> => {
-        return await loadRoleService.getRolePermissions();
+      useFactory: async (loadRoleService: LoadRoleService): Promise<RolesBuilder | null> => {
+        return null; //await loadRoleService.getRolePermissions();
       },
       inject: [LoadRoleService],
     },

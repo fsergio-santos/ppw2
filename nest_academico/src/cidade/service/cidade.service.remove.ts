@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { EntityNotFoundException } from 'src/commons/exceptions/error/entity.exception';
 import { tratarErroBanco } from 'src/commons/banco/error.database';
-import { CidadeServiceFindOne } from './cidade.service.findone';
-import { Cidade } from '../entities/cidade.entity';
 import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
+import { EntityNotFoundException } from 'src/commons/exceptions/error/entity.exception';
+import { Repository } from 'typeorm';
+import { Cidade } from '../entities/cidade.entity';
+import { CidadeServiceFindOne } from './cidade.service.findone';
 
 @Injectable()
 export class CidadeServiceRemove {
@@ -21,7 +21,14 @@ export class CidadeServiceRemove {
       throw new EntityNotFoundException(`${MENSAGENS_GENERICAS.NAO_ENCONTRADO} - ${idCidade}.`);
     }
     try {
-      await this.cidadeRepository.delete(cidade.idCidade);
+      //await this.cidadeRepository.delete(cidade.idCidade);
+
+      await this.cidadeRepository
+        .createQueryBuilder('cidade')
+        .delete()
+        .from(Cidade)
+        .where('cidade.idCidade = :idCidade', { idCidade: idCidade })
+        .execute();
     } catch (error: any) {
       tratarErroBanco(error);
     }

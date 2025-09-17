@@ -1,4 +1,4 @@
-import { Controller, Get, HttpStatus, Req } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Query, Req } from '@nestjs/common';
 import { MensagemSistema } from 'src/commons/response/mensagem.sistema';
 
 import { ApiOperation, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -7,6 +7,7 @@ import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
 import { ROTA } from 'src/commons/constants/url.sistema';
 import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
 import { Result } from 'src/commons/response/mensagem';
+import { Page } from '../../commons/response/paginacao.sistema';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceFindAll } from '../service/cidade.service.findall';
 
@@ -23,8 +24,25 @@ export class CidadeControllerFindAll {
     type: CidadeResponse,
   })
   @ApiProduces(MENSAGENS_GENERICAS.JSON_APPLICATION)
-  async findAll(@Req() res: Request): Promise<Result<CidadeResponse[]>> {
-    const response = await this.cidadeService.findAll();
-    return MensagemSistema.showMensagem(HttpStatus.OK, MENSAGEM.CIDADE.LISTAR, response, res.path, null);
+  async findAll(
+    @Req() res: Request,
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+    @Query('field') field: string = 'nomeCidade',
+    @Query('order') order: 'ASC' | 'DESC' = 'ASC',
+  ): Promise<Result<Page<CidadeResponse>>> {
+    const response = await this.cidadeService.findAll(
+      field,
+      order,
+      page ? Number(page) : undefined,
+      limit ? Number(limit) : undefined,
+    );
+    return MensagemSistema.showMensagem(
+      HttpStatus.OK,
+      MENSAGEM.CIDADE.LISTAR,
+      response,
+      res.path,
+      null,
+    );
   }
 }
