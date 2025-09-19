@@ -28,6 +28,10 @@ function getEntityDisplayName(entityKey: string): string {
   return config ? capitalize(config.singular) : capitalize(entityKey);
 }
 
+function getEntityAlias(entityAlias: string): string {
+  return entityAlias;
+}
+
 // Função para obter o nome plural da entidade
 function getEntityPluralDisplayName(entityKey: string): string {
   const config = ENTITIES_CONFIG[entityKey];
@@ -74,4 +78,13 @@ export const SHOW_ENTITY = {
   CIDADE: getEntityDisplayName(CIDADE),
   AUTH: getEntityDisplayName(AUTH),
   DEPARTAMENTO: getEntityDisplayName(DEPARTAMENTO),
+};
+
+export const ENTITY_ALIAS = {
+  USUARIO: getEntityAlias(USUARIO),
+  PROFESSOR: getEntityAlias(PROFESSOR),
+  ALUNO: getEntityAlias(ALUNO),
+  CIDADE: getEntityAlias(CIDADE),
+  AUTH: getEntityAlias(AUTH),
+  DEPARTAMENTO: getEntityAlias(DEPARTAMENTO),
 };

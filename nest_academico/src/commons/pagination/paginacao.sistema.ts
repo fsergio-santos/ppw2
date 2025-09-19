@@ -7,7 +7,6 @@ export class Page<T> {
   pageSize: number = 0;
   page: number = 0;
   lastPage: number = 0;
-  offSet: number = 0;
 
   private constructor(
     content: T[],
@@ -16,7 +15,6 @@ export class Page<T> {
     pageSize: number,
     page: number,
     lastPage: number,
-    offSet: number,
   ) {
     this.content = content;
     this.totalPages = totalPages;
@@ -24,7 +22,6 @@ export class Page<T> {
     this.pageSize = pageSize;
     this.page = page;
     this.lastPage = lastPage;
-    this.offSet = offSet;
   }
 
   static of<T>(content: T[], totalElements: number, pageable: Pageable): Page<T> {
@@ -32,8 +29,7 @@ export class Page<T> {
     const totalPages = pageSize > 0 ? Math.ceil(totalElements / pageSize) : 1;
     const lastPage = totalPages;
     const page = pageable.page ?? 1;
-    const offSet = (page - 1) * pageSize;
 
-    return new Page<T>(content, totalPages, totalElements, pageSize, page, lastPage, offSet);
+    return new Page<T>(content, totalPages, totalElements, pageSize, page, lastPage);
   }
 }
