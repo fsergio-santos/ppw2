@@ -1,6 +1,11 @@
-import { ExceptionFilter, Catch, HttpException, ArgumentsHost } from '@nestjs/common';
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+} from '@nestjs/common';
 import { Request, Response } from 'express';
-import { MensagemSistema } from '../response/mensagem.sistema';
+import { sendHttpResponse } from '../response/send.response';
 
 interface RespostaErro {
   message?: string | string[];
@@ -13,7 +18,7 @@ export class ShowExceptionsFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const req = ctx.getRequest<Request>();
-    const response = ctx.getResponse<Response>();
+    const res = ctx.getResponse<Response>();
 
     const status = exception.getStatus(); // sempre pega o status correto
     let mensagem: string | string[] = 'Erro inesperado';
@@ -23,7 +28,10 @@ export class ShowExceptionsFilter implements ExceptionFilter {
 
     if (typeof responseContent === 'string') {
       mensagem = responseContent;
-    } else if (typeof responseContent === 'object' && responseContent !== null) {
+    } else if (
+      typeof responseContent === 'object' &&
+      responseContent !== null
+    ) {
       const erroResponse = responseContent as RespostaErro;
 
       if (Array.isArray(erroResponse.message)) {
@@ -35,7 +43,6 @@ export class ShowExceptionsFilter implements ExceptionFilter {
       erro = erroResponse.erro ?? null;
     }
 
-    const body = MensagemSistema.showMensagem(status, mensagem, null, req.path, erro);
-    response.status(status).json(body);
+    return sendHttpResponse(res, status, mensagem, null, req.path, erro);
   }
 }

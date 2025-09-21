@@ -1,12 +1,22 @@
-import { HttpStatus, UnprocessableEntityException, ValidationPipe } from '@nestjs/common';
+import {
+  HttpStatus,
+  UnprocessableEntityException,
+  ValidationPipe,
+} from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { ApiResponseOptions, DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import {
+  ApiResponseOptions,
+  DocumentBuilder,
+  SwaggerModule,
+} from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { AlunoResponse } from './aluno/dto/response/aluno.response';
 import { AppModule } from './app/app.module';
 import { CidadeResponse } from './cidade/dto/response/cidade.response';
 import { MENSAGENS_GENERICAS } from './commons/enum/mensagem.generica.enum';
 import { ShowExceptionsFilter } from './commons/exceptions/exception.academico';
+import { EmailExceptionFilter } from './commons/exceptions/filters/email.exception.filter';
+import { EntityExceptionFilter } from './commons/exceptions/filters/entity.exception.filter';
 import { UnprocessebleEntityExceptionFilter } from './commons/exceptions/filters/unprocesseable.entity.filter';
 import { Mensagem } from './commons/response/mensagem';
 import { ProfessorResponse } from './professor/dto/response/professor.response';
@@ -45,14 +55,17 @@ async function bootstrap(): Promise<void> {
   app.use(cookieParser());
 
   app.useGlobalFilters(
-    new ShowExceptionsFilter(), // Trata exceções genéricas e personalizadas
-    new UnprocessebleEntityExceptionFilter(), // Captura erros 422 de validação e retorna mensagens por campo
+    new ShowExceptionsFilter(),
+    new EmailExceptionFilter(),
+    new EntityExceptionFilter(),
+    new UnprocessebleEntityExceptionFilter(),
   );
 
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // Remove propriedades que não existem no DTO
       transform: true, // Transforma os dados automaticamente para os tipos definidos nos DTOs
+      forbidNonWhitelisted: true,
       errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY, // Define 422 como o status padrão para erros de validação
       exceptionFactory: (errors) => {
         return new UnprocessableEntityException(errors);
@@ -76,7 +89,13 @@ async function bootstrap(): Promise<void> {
     .build();
 
   const document = SwaggerModule.createDocument(app, configSwagger, {
-    extraModels: [Mensagem, UsuarioResponse, ProfessorResponse, CidadeResponse, AlunoResponse],
+    extraModels: [
+      Mensagem,
+      UsuarioResponse,
+      ProfessorResponse,
+      CidadeResponse,
+      AlunoResponse,
+    ],
   });
 
   SwaggerModule.setup('docs', app, document);

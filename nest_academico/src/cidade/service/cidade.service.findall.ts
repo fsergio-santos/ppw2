@@ -22,17 +22,23 @@ export class CidadeServiceFindAll {
     pageSize: number,
     field: string,
     order: string,
+    search?: string,
   ): Promise<Page<CidadeResponse>> {
     ValidationFields.validarCampo(field, fieldsCidade, ENTITY_ALIAS.CIDADE);
 
     const pageable = new Pageable(page, pageSize, field, order, fieldsCidade);
 
-    const cidades = await this.cidadeRepository
+    const query =  this.cidadeRepository
       .createQueryBuilder(ENTITY_ALIAS.CIDADE)
       .orderBy(`${ENTITY_ALIAS.CIDADE}.${pageable.field}`, pageable.order)
       .offset(pageable.offSet)
       .limit(pageable.pageSize)
-      .getMany();
+      
+    if (search) {
+      query.where(`${ENTITY_ALIAS.CIDADE}.${field} LIKE :search`, { search: `%${search}%` });
+    }
+
+    const cidades = await query.getMany();
 
     const totalElements = await this.cidadeRepository.count();
 

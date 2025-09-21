@@ -46,22 +46,21 @@ export class Usuario extends BaseEntity {
   @Exclude() // Exclui o campo da serialização JSON se usar class-transformer
   @ManyToOne(() => Cidade, { nullable: false }) // Lazy loading (por padrão no TypeORM)
   @JoinColumn({ name: 'ID_CIDADE' })
-  cidade!: Cidade;
+  cidade!: Cidade | null;
 
   @Exclude()
   @OneToOne(() => Professor, (professor) => professor.usuario, {
     nullable: true,
-    cascade: ['insert', 'update', 'remove'],
-    onDelete: 'CASCADE',
+    cascade: ['insert', 'update'],
   })
-  professor!: Professor;
+  professor!: Professor | null;
 
   @Exclude()
   @OneToOne(() => Aluno, (aluno) => aluno.usuario, {
     nullable: true,
-    cascade: ['insert', 'update', 'remove'],
+    cascade: ['insert', 'update'],
   })
-  aluno!: Aluno;
+  aluno!: Aluno | null;
 
   @ManyToMany(() => Role, (role) => role.usuarios, { eager: true })
   @JoinTable({
@@ -69,7 +68,7 @@ export class Usuario extends BaseEntity {
     joinColumn: { name: 'USUARIO_ID', referencedColumnName: 'idUsuario' },
     inverseJoinColumn: { name: 'ROLE_ID', referencedColumnName: 'idRole' },
   })
-  roles!: Role[];
+  roles!: Role[] | null;
 
   constructor(data: Partial<Usuario> = {}) {
     super();

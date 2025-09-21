@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 
 import { tratarErroBanco } from 'src/commons/banco/error.database';
 import { UsuarioRequest } from 'src/usuario/dto/request/usuario.request';
-import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { ConverterAluno } from '../dto/converter/aluno.converter';
 import { AlunoRequest } from '../dto/request/aluno.request';
 import { AlunoResponse } from '../dto/response/aluno.response';
@@ -27,27 +26,13 @@ export class AlunoServiceCreate {
     }
   }
 
-  async createOrUpdateAluno(usuario: Usuario, usuarioRequest: UsuarioRequest): Promise<Aluno> {
-    let aluno = await this.alunoRepository
-      .createQueryBuilder('aluno')
-      .leftJoinAndSelect('aluno.usuario', 'usuario')
-      .where('usuario.idUsuario = :idUsuario', { idUsuario: usuario.idUsuario })
-      .andWhere('ROWNUM = 1')
-      .getOne();
-
-    if (!aluno) {
-      aluno = new Aluno();
-      aluno.usuario = usuario;
-    }
+  createAlunoInstance(usuarioRequest: UsuarioRequest): Aluno {
+    const aluno = new Aluno();
 
     aluno.codAluno = usuarioRequest.codAluno ?? aluno.codAluno;
     aluno.nomeAluno = usuarioRequest.nomeAluno ?? aluno.nomeAluno;
     aluno.idade = usuarioRequest.idade ?? aluno.idade;
 
-    try {
-      return this.alunoRepository.save(aluno);
-    } catch (error: any) {
-      tratarErroBanco(error);
-    }
+    return aluno;
   }
 }

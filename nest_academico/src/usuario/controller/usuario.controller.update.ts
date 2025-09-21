@@ -1,10 +1,24 @@
-import { Body, Controller, HttpStatus, Param, ParseIntPipe, Put, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Put,
+  Req,
+} from '@nestjs/common';
 import { MensagemSistema } from 'src/commons/response/mensagem.sistema';
 
-import { ApiBody, ApiConsumes, ApiOperation, ApiParam, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiParam,
+  ApiProduces,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Request } from 'express';
-import { TokenPayloadDto } from 'src/auth/dto/token.payload';
-import { TokenPayloadParam } from 'src/auth/params/token.payload.param';
 import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
 import { ROTA } from 'src/commons/constants/url.sistema';
 import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
@@ -38,9 +52,15 @@ export class UsuarioControllerUpdate {
     @Param('id', ParseIntPipe) id: number,
     @Body() usuarioRequest: UsuarioRequest,
     @Req() req: Request,
-    @TokenPayloadParam() tokenPaylod: TokenPayloadDto,
+    //@TokenPayloadParam() tokenPaylod: TokenPayloadDto,
   ): Promise<Result<UsuarioResponse>> {
-    const response = await this.usuarioService.updatePut(id, usuarioRequest, tokenPaylod);
-    return MensagemSistema.showMensagem(HttpStatus.OK, MENSAGEM.USUARIO.ATUALIZAR, response, req.path, null);
+    const response = await this.usuarioService.updatePut(id, usuarioRequest);
+    return MensagemSistema.showMensagem(
+      HttpStatus.OK,
+      MENSAGEM.USUARIO.ATUALIZAR,
+      response,
+      req.path,
+      null,
+    );
   }
 }

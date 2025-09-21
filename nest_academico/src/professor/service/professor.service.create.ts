@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Usuario } from 'src/usuario/entities/usuario.entity';
-import { UsuarioRequest } from 'src/usuario/dto/request/usuario.request';
 import { tratarErroBanco } from 'src/commons/banco/error.database';
-import { Repository } from 'typeorm';
 import { SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
-import { Professor } from '../entities/professor.entity';
+import { UsuarioRequest } from 'src/usuario/dto/request/usuario.request';
+import { Repository } from 'typeorm';
+import { ConverterProfessor } from '../dto/converter/professor.converter';
 import { ProfessorRequest } from '../dto/request/professor.request';
 import { ProfessorResponse } from '../dto/response/professor.response';
-import { ConverterProfessor } from '../dto/converter/professor.converter';
+import { Professor } from '../entities/professor.entity';
 
 @Injectable()
 export class ProfessorServiceCreate {
@@ -27,26 +26,12 @@ export class ProfessorServiceCreate {
     }
   }
 
-  async createOrUpdateProfessor(usuario: Usuario, usuarioRequest: UsuarioRequest): Promise<Professor> {
-    let professor = await this.professorRepository
-      .createQueryBuilder('professor')
-      .leftJoinAndSelect('professor.usuario', 'usuario')
-      .where('usuario.idUsuario = :idUsuario', { idUsuario: usuario.idUsuario })
-      .getOne();
-
-    if (!professor) {
-      professor = new Professor();
-      professor.usuario = usuario;
-    }
-
+  createProfessorInstance(usuarioRequest: UsuarioRequest): Professor {
+    const professor = new Professor();
     professor.codProfessor = usuarioRequest.codProfessor ?? professor.codProfessor;
     professor.nomeProfessor = usuarioRequest.nomeProfessor ?? professor.nomeProfessor;
 
-    try {
-      return this.professorRepository.save(professor);
-    } catch (error: any) {
-      tratarErroBanco(error);
-    }
+    return professor;
   }
 }
 

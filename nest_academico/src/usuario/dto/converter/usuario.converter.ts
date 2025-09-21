@@ -1,9 +1,8 @@
+import { plainToInstance } from 'class-transformer';
+import { STATUS_USUARIO } from 'src/usuario/enum/status.usuario.enum';
+import { Usuario } from '../../entities/usuario.entity';
 import { UsuarioRequest } from '../request/usuario.request';
 import { UsuarioResponse } from '../response/usuario.response';
-import { Usuario } from '../../entities/usuario.entity';
-import { plainToInstance } from 'class-transformer';
-import { Cidade } from 'src/cidade/entities/cidade.entity';
-import { STATUS_USUARIO } from 'src/usuario/enum/status.usuario.enum';
 
 export class ConverterUsuario {
   static toUsuario(usuarioRequest: UsuarioRequest): Usuario {
@@ -18,18 +17,20 @@ export class ConverterUsuario {
     usuario.tipo = usuarioRequest.tipo;
     usuario.ativo = STATUS_USUARIO.BLOQUEADO;
 
-    const cidade = new Cidade();
-    cidade.idCidade = usuarioRequest.idCidade;
-    usuario.cidade = cidade;
-
     return usuario;
   }
 
-  static toListUsuarioResponse(listaUsuario: Array<Usuario> = []): UsuarioResponse[] {
-    return plainToInstance(UsuarioResponse, listaUsuario, { excludeExtraneousValues: true });
+  static toListUsuarioResponse(
+    listaUsuario: Array<Usuario> = [],
+  ): UsuarioResponse[] {
+    return plainToInstance(UsuarioResponse, listaUsuario, {
+      excludeExtraneousValues: true,
+    });
   }
 
-  static toUsuarioResponde(usuario: Usuario): UsuarioResponse {
-    return plainToInstance(UsuarioResponse, usuario, { excludeExtraneousValues: true });
+  static toUsuarioResponse(usuario: Usuario): UsuarioResponse {
+    return plainToInstance(UsuarioResponse, usuario, {
+      excludeExtraneousValues: true,
+    });
   }
 }

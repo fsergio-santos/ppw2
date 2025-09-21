@@ -28,12 +28,12 @@
     "explorer.confirmDelete": true,
     "explorer.compactFolders": false,
 
-    "breadcrumbs.enabled": true,
+    "breadcrumbs.enabled": false,
     "editor.largeFileOptimizations": true,
     "editor.renderControlCharacters": true,
     "editor.tabSize": 2,
     "editor.renderLineHighlight": "gutter",
-    "editor.rulers": [100],
+    "editor.rulers": [80, 120],
     "editor.detectIndentation": true,
     "editor.snippetSuggestions": "bottom",
     "editor.wordBasedSuggestions": "off",
@@ -73,6 +73,14 @@
     "files.eol": "\n",
     "prettier.endOfLine": "lf",
 
-    "typescript.preferences.importModuleSpecifier": "relative"
+    "typescript.preferences.importModuleSpecifier": "relative",
+
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "files.autoSave": "afterDelay",
+    "editor.stickyScroll.enabled": false
   }
 }

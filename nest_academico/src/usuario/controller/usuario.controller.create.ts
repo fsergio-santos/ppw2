@@ -20,7 +20,7 @@ export class UsuarioControllerCreate {
   @ApiOperation({ summary: MENSAGEM.USUARIO.OPERACAO_CRIAR })
   @ApiParam({
     name: 'UsuarioRequest',
-    description: MENSAGEM.ALUNO.OPERACAO_CRIAR,
+    description: MENSAGEM.USUARIO.OPERACAO_CRIAR,
     required: true,
     type: UsuarioRequest,
   })

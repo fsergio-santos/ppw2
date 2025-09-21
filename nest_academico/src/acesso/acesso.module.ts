@@ -20,7 +20,7 @@ import { LoadRoleService } from './service/load.role.service';
     {
       provide: RolesBuilder,
       useFactory: async (loadRoleService: LoadRoleService): Promise<RolesBuilder | null> => {
-        return null; //await loadRoleService.getRolePermissions();
+        return await loadRoleService.getRolePermissions();
       },
       inject: [LoadRoleService],
     },

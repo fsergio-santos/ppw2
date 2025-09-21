@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { BaseEntity } from 'src/commons/entity/base.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
@@ -13,6 +14,7 @@ export class Cidade extends BaseEntity {
   @Column({ name: 'NOME_CIDADE', type: 'varchar2', length: 100 })
   nomeCidade: string = '';
 
+  @Exclude()
   @OneToMany(() => Usuario, (usuario) => usuario.cidade)
   usuarios!: Usuario[];
 

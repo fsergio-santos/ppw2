@@ -5,6 +5,7 @@ import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
 import { EntityNotFoundException } from 'src/commons/exceptions/error/entity.exception';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { Repository } from 'typeorm';
+import { UsuarioRequest } from '../../usuario/dto/request/usuario.request';
 import { ConverterAluno } from '../dto/converter/aluno.converter';
 import { AlunoRequest } from '../dto/request/aluno.request';
 import { AlunoResponse } from '../dto/response/aluno.response';
@@ -38,5 +39,23 @@ export class AlunoServiceUpdate {
     } catch (error: any) {
       tratarErroBanco(error);
     }
+  }
+
+  async prepareForUpdate(usuario: Usuario, request: UsuarioRequest): Promise<Aluno> {
+    let aluno = null;
+
+    if (request.idUsuario) {
+      aluno = await this.findOne.findById(request.idUsuario);
+    }
+    if (!aluno) {
+      aluno = new Aluno();
+    }
+
+    aluno.usuario = usuario;
+    aluno.codAluno = request.codAluno ?? '';
+    aluno.nomeAluno = request.nomeAluno ?? '';
+    aluno.idade = request.idade ?? 0;
+
+    return aluno;
   }
 }

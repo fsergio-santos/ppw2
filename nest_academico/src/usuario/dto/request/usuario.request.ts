@@ -8,14 +8,11 @@ import {
   IsOptional,
   IsString,
   MaxLength,
-  Validate,
   ValidateIf,
-  ValidatorConstraint,
 } from 'class-validator';
-import { MatchPasswordConstraint } from 'src/commons/validation/match-password.constraint';
 import { TIPO_USUARIO } from 'src/usuario/enum/tipo.usuario.enum';
+import { Match } from '../../../commons/decorators/match.senha.decorator';
 
-@ValidatorConstraint({ name: 'MatchPassword', async: false })
 export class UsuarioRequest {
   @Type(() => Number)
   @IsOptional()
@@ -59,7 +56,8 @@ export class UsuarioRequest {
   //   message:
   //     'A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.',
   // })
-  @Validate(MatchPasswordConstraint)
+  @IsNotEmpty({ message: 'O campo confirmSenha é obrigatório' })
+  @Match('senha', { message: 'As senhas não coincidem ' })
   confirmSenha: string = 'Senha do usuário ';
 
   @ApiProperty({ description: 'Foto do usuário ' })
@@ -80,43 +78,43 @@ export class UsuarioRequest {
   idCidade: number = 0;
 
   @ApiProperty({ description: 'Código de identificação do aluno ' })
-  @ValidateIf((o) => o.tipo === 2)
+  @ValidateIf((o) => o.tipo === 1)
   @Type(() => Number)
   @IsInt({ message: 'O código do aluno deve ser informado ' })
   idAluno?: number = 0;
 
   @ApiProperty({ description: 'Código do aluno ' })
-  @ValidateIf((o) => o.tipo === 1)
+  @ValidateIf((o) => o.tipo === TIPO_USUARIO.ALUNO)
   @IsString({ message: 'Informe o código do aluno 11' })
   @IsNotEmpty({ message: 'O código do aluno é obrigatório 12' })
   codAluno?: string = '';
 
   @ApiProperty({ description: 'Nome do aluno ' })
-  @ValidateIf((o) => o.tipo === 1)
+  @ValidateIf((o) => o.tipo === TIPO_USUARIO.ALUNO)
   @IsString({ message: 'O nome do aluno deve ser informado ' })
   @IsNotEmpty({ message: 'O nome do aluno é obrigatório ' })
   nomeAluno?: string = '';
 
   @ApiProperty({ description: 'Idade do aluno ' })
-  @ValidateIf((o) => o.tipo === 1)
+  @ValidateIf((o) => o.tipo === TIPO_USUARIO.ALUNO)
   @Type(() => Number)
   @IsInt({ message: 'A idade do aluno deve ser informada ' })
   idade?: number = 0;
 
   @ApiProperty({ description: 'Código de identificação do professor ' })
-  @ValidateIf((o) => o.tipo === 2)
+  @ValidateIf((o) => o.tipo === TIPO_USUARIO.PROFESSOR)
   @Type(() => Number)
   @IsInt({ message: 'O código do professor deve ser informado ' })
   idProfessor?: number = 0;
 
   @ApiProperty({ description: 'Nome do professor ' })
-  @ValidateIf((o) => o.tipo === 2)
+  @ValidateIf((o) => o.tipo === TIPO_USUARIO.PROFESSOR)
   @IsString({ message: 'O nome do professor deve ser informado ' })
   @IsNotEmpty({ message: 'O nome do professor é obrigatório ' })
   nomeProfessor?: string = '';
 
   @ApiProperty({ description: 'Código do professor ' })
-  @ValidateIf((o) => o.tipo === 2)
+  @ValidateIf((o) => o.tipo === TIPO_USUARIO.PROFESSOR)
   @IsString({ message: 'Informe o código do professor ' })
   @IsNotEmpty({ message: 'O código do professor é obrigatório ' })
   codProfessor?: string = '';

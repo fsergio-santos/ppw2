@@ -32,6 +32,7 @@ export class CidadeControllerFindAll {
     @Query('pageSize') pageSize?: string,
     @Query('field') field?: string,
     @Query('order') order?: string,
+    @Query('search') search?: string,
   ): Promise<Result<Page<CidadeResponse> | CidadeResponse[]>> {
     let response = null;
 
@@ -41,6 +42,7 @@ export class CidadeControllerFindAll {
         pageSize ? Number(pageSize) : PAGINATION.PAGESIZE,
         field ? field : CIDADE_FIELDS.ID,
         order ? order : PAGINATION.ASC,
+        search, 
       );
     } else {
       response = await this.cidadeService.findAllPaginateClient();

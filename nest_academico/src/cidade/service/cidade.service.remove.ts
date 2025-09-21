@@ -21,8 +21,6 @@ export class CidadeServiceRemove {
       throw new EntityNotFoundException(`${MENSAGENS_GENERICAS.NAO_ENCONTRADO} - ${idCidade}.`);
     }
     try {
-      //await this.cidadeRepository.delete(cidade.idCidade);
-
       await this.cidadeRepository
         .createQueryBuilder('cidade')
         .delete()
