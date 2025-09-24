@@ -1,6 +1,5 @@
 import { plainToInstance } from 'class-transformer';
 import { Aluno } from 'src/aluno/entities/aluno.entity';
-import { Cidade } from 'src/cidade/entities/cidade.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { AlunoRequest } from '../request/aluno.request';
 import { AlunoResponse } from '../response/aluno.response';
@@ -8,16 +7,7 @@ import { AlunoResponse } from '../response/aluno.response';
 export class ConverterAluno {
   static toAluno(alunoRequest: AlunoRequest): Aluno {
     const usuario = new Usuario();
-    usuario.idUsuario = alunoRequest.usuario.idUsuario;
-    usuario.codUsuario = alunoRequest.usuario.codUsuario;
-    usuario.nomeUsuario = alunoRequest.usuario.nomeUsuario;
-    usuario.email = alunoRequest.usuario.email;
-    usuario.senha = alunoRequest.usuario.senha;
-    usuario.tipo = 2;
-
-    const cidade = new Cidade();
-    cidade.idCidade = alunoRequest.usuario.idCidade;
-    usuario.cidade = cidade;
+    usuario.idUsuario = alunoRequest.idUsuario;
 
     const aluno = new Aluno();
     aluno.idAluno = alunoRequest.idAluno;
@@ -29,8 +19,8 @@ export class ConverterAluno {
     return aluno;
   }
 
-  static toListAlunoResponse(lista: Aluno[] = []): AlunoResponse[] {
-    const alunosUsuario = lista.map((aluno) => ({
+  static toListAlunoResponse(aluno: Aluno[] = []): AlunoResponse[] {
+    const alunosUsuario = aluno.map((aluno) => ({
       idAluno: aluno.idAluno,
       codAluno: aluno.codAluno,
       nomeAluno: aluno.nomeAluno,

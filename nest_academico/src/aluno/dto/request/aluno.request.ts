@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsInt, IsNotEmpty, IsOptional, IsString, MaxLength, ValidateNested } from 'class-validator';
-import { UsuarioRequest } from 'src/usuario/dto/request/usuario.request';
+import { IsInt, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 export class AlunoRequest {
   @Type(() => Number)
@@ -31,10 +30,6 @@ export class AlunoRequest {
   @ApiProperty({ description: 'Código do usuário ', example: '1' })
   @IsInt({ message: 'informe o código do usuário' })
   idUsuario?: number = 0;
-
-  @ValidateNested()
-  @Type(() => UsuarioRequest)
-  usuario!: UsuarioRequest;
 
   constructor(data: Partial<AlunoRequest> = {}) {
     Object.assign(this, data);

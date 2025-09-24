@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { tratarErroBanco } from '../../commons/banco/error.database';
-import { MENSAGENS_GENERICAS } from '../../commons/enum/mensagem.generica.enum';
 import { EntityRegisteredExcepiton } from '../../commons/exceptions/error/entity.cadastrada.exception';
+import { CIDADE } from '../constants/cidade.constants';
 import { ConverterCidade } from '../dto/converter/cidade.converter';
 import { CidadeRequest } from '../dto/request/cidade.request';
 import { CidadeResponse } from '../dto/response/cidade.response';
@@ -21,28 +21,19 @@ export class CidadeServiceCreate {
       let cidade = ConverterCidade.toCidade(cidadeRequest);
 
       const cidadeCastrada = await this.cidadeRepository
-        .createQueryBuilder('cidade')
-        .where('cidade.nomeCidade = :nome', { nome: cidade.nomeCidade })
+        .createQueryBuilder(CIDADE.ALIAS)
+        .where(`${CIDADE.ALIAS}.${CIDADE.FIELDS.NOME} = :nome`, { nome: cidade.nomeCidade })
         .getOne();
 
       if (cidadeCastrada) {
-        throw new EntityRegisteredExcepiton(MENSAGENS_GENERICAS.ENTIDADE_JA_CADASTRADA);
+        throw new EntityRegisteredExcepiton(CIDADE.OPERACAO.CRIAR.EXISTE);
       }
 
       cidade = await this.cidadeRepository.save(cidade);
 
       return ConverterCidade.toCidadeResponse(cidade);
     } catch (error: any) {
-      if (
-        error.code === 'ORA-00001' || //oracle
-        error.code === '23505' || //postgree
-        error.code === 'ER_DUP_ENTRY' || // mysql
-        error.errno === 1062
-      ) {
-        throw new EntityRegisteredExcepiton(MENSAGENS_GENERICAS.ENTIDADE_JA_CADASTRADA);
-      }
-
-      tratarErroBanco(error);
+      tratarErroBanco(error, undefined, CIDADE.ENTITY);
     }
   }
 }

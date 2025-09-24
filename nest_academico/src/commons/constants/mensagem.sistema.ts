@@ -1,3 +1,4 @@
+import { DISCIPLINA } from '../../disciplina/constants/disciplina.constants';
 import { TipoOperacaoEntidade } from '../enum/tipo.operacao.enum';
 import { ALUNO, AUTH, CIDADE, DEPARTAMENTO, PROFESSOR, USUARIO } from './constants.sistema';
 
@@ -53,7 +54,7 @@ function gerarMensagensEntidade(entityKey: string): MensagensEntidade {
     [TipoOperacaoEntidade.OPERACAO_CRIAR]: `Criar um novo ${nomeSingularCapitalizado}`,
     [TipoOperacaoEntidade.OPERACAO_ATUALIZAR]: `Atualizar os dados - ${nomeSingularCapitalizado}`,
     [TipoOperacaoEntidade.OPERACAO_POR_ID]: `Mostra os dados - ${nomeSingularCapitalizado} - por um identificador único`,
-    [TipoOperacaoEntidade.OPERACAO_EXCLUIR]: `Exlui os dados - ${nomeSingularCapitalizado} - por um identificador único`,
+    [TipoOperacaoEntidade.OPERACAO_EXCLUIR]: `Exclui os dados - ${nomeSingularCapitalizado} - por um identificador único`,
     [TipoOperacaoEntidade.OPERACAO_LISTAR]: `Listagem dos dados - ${nomePluralLower} `,
     [TipoOperacaoEntidade.LOGIN]: `Login do ${nomeSingularCapitalizado} no sistema`,
     [TipoOperacaoEntidade.LOGOUT]: `Logout do ${nomeSingularCapitalizado} no sistema`,
@@ -68,7 +69,7 @@ export const MENSAGEM = {
   ALUNO: gerarMensagensEntidade(ALUNO),
   CIDADE: gerarMensagensEntidade(CIDADE),
   AUTH: gerarMensagensEntidade(AUTH),
-  DEPARTAMENTO: gerarMensagensEntidade(DEPARTAMENTO),
+  DISCIPLINA: gerarMensagensEntidade(DISCIPLINA.ALIAS),
 };
 
 export const SHOW_ENTITY = {
@@ -77,7 +78,7 @@ export const SHOW_ENTITY = {
   ALUNO: getEntityDisplayName(ALUNO),
   CIDADE: getEntityDisplayName(CIDADE),
   AUTH: getEntityDisplayName(AUTH),
-  DEPARTAMENTO: getEntityDisplayName(DEPARTAMENTO),
+  DISCIPLINA: getEntityDisplayName(DISCIPLINA.ALIAS),
 };
 
 export const ENTITY_ALIAS = {
@@ -86,5 +87,5 @@ export const ENTITY_ALIAS = {
   ALUNO: getEntityAlias(ALUNO),
   CIDADE: getEntityAlias(CIDADE),
   AUTH: getEntityAlias(AUTH),
-  DEPARTAMENTO: getEntityAlias(DEPARTAMENTO),
+  DISCIPLINA: getEntityAlias(DISCIPLINA.ALIAS),
 };

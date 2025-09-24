@@ -7,9 +7,9 @@ import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
 import { ROTA } from 'src/commons/constants/url.sistema';
 import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
 import { Result } from 'src/commons/response/mensagem';
-import { CIDADE_FIELDS } from '../../commons/constants/cidade.constants';
 import { PAGINATION } from '../../commons/enum/paginacao.enum';
 import { Page } from '../../commons/pagination/paginacao.sistema';
+import { CIDADE_FIELDS } from '../constants/cidade.constants';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceFindAll } from '../service/cidade.service.findall';
 
@@ -42,18 +42,12 @@ export class CidadeControllerFindAll {
         pageSize ? Number(pageSize) : PAGINATION.PAGESIZE,
         field ? field : CIDADE_FIELDS.ID,
         order ? order : PAGINATION.ASC,
-        search, 
+        search,
       );
     } else {
       response = await this.cidadeService.findAllPaginateClient();
     }
 
-    return MensagemSistema.showMensagem(
-      HttpStatus.OK,
-      MENSAGEM.CIDADE.LISTAR,
-      response,
-      res.path,
-      null,
-    );
+    return MensagemSistema.showMensagem(HttpStatus.OK, MENSAGEM.CIDADE.LISTAR, response, res.path, null);
   }
 }

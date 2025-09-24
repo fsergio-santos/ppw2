@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { fieldsCidade } from '../../commons/constants/cidade.constants';
+import { tratarErroBanco } from '../../commons/banco/error.database';
 import { ENTITY_ALIAS } from '../../commons/constants/mensagem.sistema';
 import { Pageable } from '../../commons/pagination/page.response';
 import { Page } from '../../commons/pagination/paginacao.sistema';
 import { ValidationFields } from '../../commons/validation/field.validation';
+import { fieldsCidade } from '../constants/cidade.constants';
 import { ConverterCidade } from '../dto/converter/cidade.converter';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { Cidade } from '../entities/cidade.entity';
@@ -28,23 +29,27 @@ export class CidadeServiceFindAll {
 
     const pageable = new Pageable(page, pageSize, field, order, fieldsCidade);
 
-    const query =  this.cidadeRepository
-      .createQueryBuilder(ENTITY_ALIAS.CIDADE)
-      .orderBy(`${ENTITY_ALIAS.CIDADE}.${pageable.field}`, pageable.order)
-      .offset(pageable.offSet)
-      .limit(pageable.pageSize)
-      
-    if (search) {
-      query.where(`${ENTITY_ALIAS.CIDADE}.${field} LIKE :search`, { search: `%${search}%` });
+    try {
+      const query = this.cidadeRepository
+        .createQueryBuilder(ENTITY_ALIAS.CIDADE)
+        .orderBy(`${ENTITY_ALIAS.CIDADE}.${pageable.field}`, pageable.order)
+        .offset(pageable.offSet)
+        .limit(pageable.pageSize);
+
+      if (search) {
+        query.where(`${ENTITY_ALIAS.CIDADE}.${field} LIKE :search`, { search: `%${search}%` });
+      }
+
+      const cidades = await query.getMany();
+
+      const totalElements = await this.cidadeRepository.count();
+
+      const dados = ConverterCidade.toListCidadeResponse(cidades);
+
+      return Page.of(dados, totalElements, pageable);
+    } catch (error: any) {
+      tratarErroBanco(error);
     }
-
-    const cidades = await query.getMany();
-
-    const totalElements = await this.cidadeRepository.count();
-
-    const dados = ConverterCidade.toListCidadeResponse(cidades);
-
-    return Page.of(dados, totalElements, pageable);
   }
 
   async findAllPaginateClient(): Promise<CidadeResponse[]> {

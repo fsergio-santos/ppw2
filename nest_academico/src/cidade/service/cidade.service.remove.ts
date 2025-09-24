@@ -6,6 +6,7 @@ import { EntityNotFoundException } from 'src/commons/exceptions/error/entity.exc
 import { Repository } from 'typeorm';
 import { Cidade } from '../entities/cidade.entity';
 import { CidadeServiceFindOne } from './cidade.service.findone';
+import { CIDADE } from '../constants/cidade.constants';
 
 @Injectable()
 export class CidadeServiceRemove {
@@ -18,17 +19,17 @@ export class CidadeServiceRemove {
   async remove(idCidade: number): Promise<void> {
     const cidade = await this.findOne.findById(idCidade);
     if (!cidade?.idCidade) {
-      throw new EntityNotFoundException(`${MENSAGENS_GENERICAS.NAO_ENCONTRADO} - ${idCidade}.`);
+      throw new EntityNotFoundException(`${CIDADE.OPERACAO.POR_ID.NAO_LOCALIZADO} - ${idCidade}.`);
     }
     try {
       await this.cidadeRepository
-        .createQueryBuilder('cidade')
+        .createQueryBuilder(CIDADE.ALIAS)
         .delete()
-        .from(Cidade)
-        .where('cidade.idCidade = :idCidade', { idCidade: idCidade })
+        .from(CIDADE.ENTITY)
+        .where(`${CIDADE.ALIAS}.${CIDADE.FIELDS.ID} = :idCidade`, { idCidade: idCidade })
         .execute();
     } catch (error: any) {
-      tratarErroBanco(error);
+      tratarErroBanco(error, idCidade, CIDADE.ENTITY);
     }
   }
 }

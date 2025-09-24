@@ -1,23 +1,14 @@
+import { plainToInstance } from 'class-transformer';
 import { Professor } from 'src/professor/entities/professor.entity';
+import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { ProfessorRequest } from '../request/professor.request';
 import { ProfessorResponse } from '../response/professor.response';
-import { Usuario } from 'src/usuario/entities/usuario.entity';
-import { Cidade } from 'src/cidade/entities/cidade.entity';
-import { plainToInstance } from 'class-transformer';
 
 export class ConverterProfessor {
   static toProfessor(professorRequest: ProfessorRequest): Professor {
     const usuario = new Usuario();
-    usuario.idUsuario = professorRequest.usuario.idUsuario;
-    usuario.codUsuario = professorRequest.usuario.codUsuario;
-    usuario.nomeUsuario = professorRequest.usuario.nomeUsuario;
-    usuario.email = professorRequest.usuario.email;
-    usuario.senha = professorRequest.usuario.senha;
+    usuario.idUsuario = professorRequest.idUsuario;
     usuario.tipo = 1;
-
-    const cidade = new Cidade();
-    cidade.idCidade = professorRequest.usuario.idCidade;
-    usuario.cidade = cidade;
 
     const professor = new Professor();
     professor.idProfessor = professorRequest.idProfessor;
@@ -28,8 +19,8 @@ export class ConverterProfessor {
     return professor;
   }
 
-  static toListProfessorResponse(lista: Professor[] = []): ProfessorResponse[] {
-    const professoresUsuario = lista.map((professor) => ({
+  static toListProfessorResponse(professor: Professor[] = []): ProfessorResponse[] {
+    const professoresUsuario = professor.map((professor) => ({
       idProfessor: professor.idProfessor,
       codProfessor: professor.codProfessor,
       nomeProfessor: professor.nomeProfessor,

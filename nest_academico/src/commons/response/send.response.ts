@@ -9,7 +9,5 @@ export function sendHttpResponse<T>(
   path: string | null,
   erro: string | null,
 ) {
-  return res
-    .status(status)
-    .json(MensagemSistema.showMensagem(status, mensagem, dados, path, erro));
+  return res.status(status).json(MensagemSistema.showMensagem(status, mensagem, dados, path, erro));
 }
