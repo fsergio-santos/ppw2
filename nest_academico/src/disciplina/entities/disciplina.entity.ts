@@ -36,3 +36,4 @@ export class Disciplina {
     Object.assign(this, data);
   }
 }
+

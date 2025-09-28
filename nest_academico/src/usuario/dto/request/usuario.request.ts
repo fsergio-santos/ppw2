@@ -8,115 +8,111 @@ import {
   IsOptional,
   IsString,
   MaxLength,
+  MinLength,
   ValidateIf,
 } from 'class-validator';
 import { TIPO_USUARIO } from 'src/usuario/enum/tipo.usuario.enum';
 import { Match } from '../../../commons/decorators/match.senha.decorator';
+import { USUARIO } from '../../constants/usuario.constants';
 
 export class UsuarioRequest {
+  @ApiProperty({ description: USUARIO.SWAGGER.ID, example: '1' })
   @Type(() => Number)
   @IsOptional()
   idUsuario?: number = 0;
 
-  @ApiProperty({ description: 'Código do usuário ' })
-  @IsNotEmpty({ message: 'O código do usuário deve ser informado ' })
-  @IsString()
-  @MaxLength(20, {
-    message: 'O tamanho máximo é de 20 caracteres para o código do usuário',
-  })
+  @ApiProperty({ description: USUARIO.SWAGGER.CODUSUARIO, example: 'COD120' })
+  @IsNotEmpty({ message: USUARIO.INPUT_ERROR.CODUSUARIO.BLANK })
+  @IsString({ message: USUARIO.INPUT_ERROR.CODUSUARIO.STRING })
+  @MinLength(6, { message: USUARIO.INPUT_ERROR.CODUSUARIO.MIN_LEN })
+  @MaxLength(20, { message: USUARIO.INPUT_ERROR.CODUSUARIO.MAX_LEN })
   codUsuario: string = '';
 
-  @ApiProperty({ description: 'Nome do usuário ' })
-  @MaxLength(100, {
-    message: 'O tamanho máximo é de 100 caracteres para o nome do usuário',
-  })
-  @IsNotEmpty({ message: 'O código do usuário deve ser informado ' })
-  @IsString()
+  @ApiProperty({ description: USUARIO.SWAGGER.NOME, example: 'Antônio da Silva' })
+  @IsNotEmpty({ message: USUARIO.INPUT_ERROR.NOME.BLANK })
+  @IsString({ message: USUARIO.INPUT_ERROR.NOMEALUNO.STRING })
+  @MinLength(6, { message: USUARIO.INPUT_ERROR.NOMEALUNO.MIN_LEN })
+  @MaxLength(100, { message: USUARIO.INPUT_ERROR.NOMEALUNO.MAX_LEN })
   nomeUsuario: string = '';
 
-  @ApiProperty({ description: 'E-mail do usuário ' })
-  @IsString()
-  @IsEmail({}, { message: 'Informe o endereço de e-mail válido ' })
-  @MaxLength(100, {
-    message: 'O tamanho máximo é de 255 caracteres para o e-mail',
-  })
+  @ApiProperty({ description: USUARIO.SWAGGER.EMAIL, example: 'antonio@dominio.com.br' })
+  @IsNotEmpty({ message: USUARIO.INPUT_ERROR.EMAIL.BLANK })
+  @IsEmail({}, { message: USUARIO.INPUT_ERROR.EMAIL.VALID })
+  @MaxLength(100, { message: USUARIO.INPUT_ERROR.EMAIL.LEN })
   email: string = '';
 
-  @ApiProperty({ description: 'Senha do usuário ' })
-  @IsString()
-  // @Matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).*$/, {
-  //   message:
-  //     'A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.',
-  // })
+  @ApiProperty({ description: USUARIO.SWAGGER.SENHA, example: '1aAb#1345' })
+  @IsNotEmpty({ message: USUARIO.INPUT_ERROR.SENHA.BLANK })
+  @MaxLength(20, { message: USUARIO.INPUT_ERROR.SENHA.MAX_LEN })
+  @MinLength(6, { message: USUARIO.INPUT_ERROR.SENHA.MIN_LEN })
   senha: string = '';
 
-  @ApiProperty({ description: '' })
-  @IsString()
-  // @Matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!]).*$/, {
-  //   message:
-  //     'A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.',
-  // })
-  @IsNotEmpty({ message: 'O campo confirmSenha é obrigatório' })
-  @Match('senha', { message: 'As senhas não coincidem ' })
-  confirmSenha: string = 'Senha do usuário ';
+  @ApiProperty({ description: USUARIO.SWAGGER.CONFIRM_SENHA, example: '1aAb#1345' })
+  @IsNotEmpty({ message: USUARIO.INPUT_ERROR.CONFIRMSENHA.BLANK })
+  @Match('senha', { message: USUARIO.INPUT_ERROR.CONFIRMSENHA.EQUALS })
+  confirmSenha: string = '';
 
-  @ApiProperty({ description: 'Foto do usuário ' })
-  @IsString()
+  @ApiProperty({ description: USUARIO.SWAGGER.FOTO })
+  @IsString({ message: USUARIO.INPUT_ERROR.FOTO.STRING })
   @IsOptional()
   foto?: string;
 
-  @ApiProperty({ description: '' })
+  @ApiProperty({ description: USUARIO.SWAGGER.TIPO, example: '1' })
   @Type(() => Number)
-  @IsNotEmpty({ message: 'O tipo do usuário é obrigatório.' })
-  @IsEnum(TIPO_USUARIO, { message: 'O tipo do usuário deverser Aluno { 1 }, ou Professor { 2 }' })
+  @IsNotEmpty({ message: USUARIO.INPUT_ERROR.TIPO.BLANK })
+  @IsEnum(TIPO_USUARIO, { message: USUARIO.INPUT_ERROR.TIPO.VALID })
   tipo: number = 0;
 
-  @ApiProperty({ description: 'Código de identificação da cidade ' })
+  @ApiProperty({ description: USUARIO.SWAGGER.IDCIDADE, example: '1' })
   @Type(() => Number)
-  @IsNotEmpty({ message: 'O código da cidade deve ser informado.' })
+  @IsNotEmpty({ message: USUARIO.INPUT_ERROR.IDCIDADE.VALID })
   @IsInt()
   idCidade: number = 0;
 
-  @ApiProperty({ description: 'Código de identificação do aluno ' })
+  @ApiProperty({ description: USUARIO.SWAGGER.IDALUNO, example: '1' })
   @ValidateIf((o) => o.tipo === 1)
   @Type(() => Number)
-  @IsInt({ message: 'O código do aluno deve ser informado ' })
+  @IsInt({ message: USUARIO.INPUT_ERROR.IDALUNO.VALID })
   idAluno?: number = 0;
 
-  @ApiProperty({ description: 'Código do aluno ' })
+  @ApiProperty({ description: USUARIO.SWAGGER.CODALUNO, example: 'COD121' })
   @ValidateIf((o) => o.tipo === TIPO_USUARIO.ALUNO)
-  @IsString({ message: 'Informe o código do aluno 11' })
-  @IsNotEmpty({ message: 'O código do aluno é obrigatório 12' })
+  @IsString({ message: USUARIO.INPUT_ERROR.CODALUNO.STRING })
+  @MinLength(6, { message: USUARIO.INPUT_ERROR.CODALUNO.MIN_LEN })
+  @MaxLength(20, { message: USUARIO.INPUT_ERROR.CODALUNO.MAX_LEN })
   codAluno?: string = '';
 
-  @ApiProperty({ description: 'Nome do aluno ' })
+  @ApiProperty({ description: USUARIO.SWAGGER.NOMEALUNO, example: 'Antônio da Silva' })
   @ValidateIf((o) => o.tipo === TIPO_USUARIO.ALUNO)
-  @IsString({ message: 'O nome do aluno deve ser informado ' })
-  @IsNotEmpty({ message: 'O nome do aluno é obrigatório ' })
+  @IsString({ message: USUARIO.INPUT_ERROR.NOMEALUNO.STRING })
+  @MinLength(6, { message: USUARIO.INPUT_ERROR.NOMEALUNO.MIN_LEN })
+  @MaxLength(20, { message: USUARIO.INPUT_ERROR.NOMEALUNO.MAX_LEN })
   nomeAluno?: string = '';
 
-  @ApiProperty({ description: 'Idade do aluno ' })
+  @ApiProperty({ description: USUARIO.SWAGGER.IDADE, example: '21' })
   @ValidateIf((o) => o.tipo === TIPO_USUARIO.ALUNO)
   @Type(() => Number)
-  @IsInt({ message: 'A idade do aluno deve ser informada ' })
+  @IsInt({ message: USUARIO.INPUT_ERROR.IDADE.VALID })
   idade?: number = 0;
 
-  @ApiProperty({ description: 'Código de identificação do professor ' })
+  @ApiProperty({ description: USUARIO.SWAGGER.IDPROFESSOR, example: '1' })
   @ValidateIf((o) => o.tipo === TIPO_USUARIO.PROFESSOR)
   @Type(() => Number)
-  @IsInt({ message: 'O código do professor deve ser informado ' })
+  @IsInt({ message: USUARIO.INPUT_ERROR.IDPROFESSOR.VALID })
   idProfessor?: number = 0;
 
-  @ApiProperty({ description: 'Nome do professor ' })
+  @ApiProperty({ description: USUARIO.SWAGGER.NOMEPROFESSOR, example: 'Antônio da Silva' })
   @ValidateIf((o) => o.tipo === TIPO_USUARIO.PROFESSOR)
-  @IsString({ message: 'O nome do professor deve ser informado ' })
-  @IsNotEmpty({ message: 'O nome do professor é obrigatório ' })
+  @IsString({ message: USUARIO.INPUT_ERROR.NOMEPROFESSOR.STRING })
+  @MinLength(6, { message: USUARIO.INPUT_ERROR.NOMEPROFESSOR.MIN_LEN })
+  @MaxLength(20, { message: USUARIO.INPUT_ERROR.NOMEPROFESSOR.MAX_LEN })
   nomeProfessor?: string = '';
 
-  @ApiProperty({ description: 'Código do professor ' })
+  @ApiProperty({ description: USUARIO.SWAGGER.CODPROFESSOR, example: 'COD121' })
   @ValidateIf((o) => o.tipo === TIPO_USUARIO.PROFESSOR)
-  @IsString({ message: 'Informe o código do professor ' })
-  @IsNotEmpty({ message: 'O código do professor é obrigatório ' })
+  @IsString({ message: USUARIO.INPUT_ERROR.CODPROFESSOR.STRING })
+  @MinLength(6, { message: USUARIO.INPUT_ERROR.CODPROFESSOR.MIN_LEN })
+  @MaxLength(20, { message: USUARIO.INPUT_ERROR.CODPROFESSOR.MAX_LEN })
   codProfessor?: string = '';
 
   constructor(data: Partial<UsuarioRequest> = {}) {

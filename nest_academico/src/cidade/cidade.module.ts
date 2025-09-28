@@ -28,6 +28,7 @@ const cidadeServices = [
   CidadeServiceFindOne,
   CidadeServiceRemove,
   CidadeServiceUpdate,
+  
 ];
 
 @Module({

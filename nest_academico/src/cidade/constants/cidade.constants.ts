@@ -40,7 +40,7 @@ export const CIDADE = {
   OPERACAO: {
     CRIAR: {
       ACAO: `Criar uma nova ${ENTITY_NAME} no sistema`,
-      SUCESSO: `A ${ENTITY_NAME} FOI criada com sucesso`,
+      SUCESSO: `A ${ENTITY_NAME} foi criada com sucesso`,
       ERRO: `Falha na criação da ${ENTITY_NAME} no sistema`,
       EXISTE: `A ${ENTITY_NAME} já está cadastrada no sistema `,
     },

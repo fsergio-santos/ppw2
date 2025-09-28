@@ -7,6 +7,7 @@ import { DisciplinaControllerFindOne } from './controllers/disciplina.controller
 import { DisciplinaControllerRemove } from './controllers/disciplina.controller.remove';
 import { DisciplinaControllerUpdate } from './controllers/disciplina.controller.update';
 import { Disciplina } from './entities/disciplina.entity';
+import { DisciplinaServiceCount } from './service/disciplina.service.count';
 import { DisciplinaServiceCreate } from './service/disciplina.service.create';
 import { DisciplinaServiceFindAll } from './service/disciplina.service.findall';
 import { DisciplinaServiceFindOne } from './service/disciplina.service.findone';
@@ -27,6 +28,7 @@ const disciplinaServices = [
   DisciplinaServiceFindOne,
   DisciplinaServiceRemove,
   DisciplinaServiceUpdate,
+  DisciplinaServiceCount,
 ];
 
 @Module({
