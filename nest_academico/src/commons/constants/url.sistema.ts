@@ -1,6 +1,9 @@
+import { ALUNO } from '../../aluno/constants/aluno.constants';
 import { CIDADE } from '../../cidade/constants/cidade.constants';
 import { DISCIPLINA } from '../../disciplina/constants/disciplina.constants';
-import { ALUNO, PROFESSOR, USUARIO } from './constants.sistema';
+import { MATRICULA } from '../../matricula/constants/alunodisciplina.constants';
+import { USUARIO } from '../../usuario/constants/usuario.constants';
+import { PROFESSOR } from './constants.sistema';
 
 export const SERVIDOR = 'http://localhost:8000';
 export const CLIENTE = 'http://localhost:3000';
@@ -51,11 +54,12 @@ function gerarRotasAuth() {
 }
 
 export const ROTA = {
-  USUARIO: gerarRotasSistema(USUARIO),
+  USUARIO: gerarRotasSistema(USUARIO.ALIAS),
   PROFESSOR: gerarRotasSistema(PROFESSOR),
   CIDADE: gerarRotasSistema(CIDADE.ALIAS),
-  ALUNO: gerarRotasSistema(ALUNO),
+  ALUNO: gerarRotasSistema(ALUNO.ALIAS),
   DISCIPLINA: gerarRotasSistema(DISCIPLINA.ALIAS),
+  MATRICULA: gerarRotasSistema(MATRICULA.ALIAS),
 };
 
 export const ROTA_AUTH = gerarRotasAuth();

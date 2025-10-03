@@ -1,5 +1,4 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { TokenPayloadDto } from 'src/auth/dto/token.payload';
 import { tratarErroBanco } from 'src/commons/banco/error.database';
 import { MENSAGENS_GENERICAS } from 'src/commons/enum/mensagem.generica.enum';
@@ -7,7 +6,6 @@ import { EntityNotFoundException } from 'src/commons/exceptions/error/entity.exc
 import { DataSource } from 'typeorm';
 import { AlunoServiceCount } from '../../aluno/service/aluno.service.count';
 import { DisciplinaServiceCount } from '../../disciplina/service/disciplina.service.count';
-import { Usuario } from '../entities/usuario.entity';
 import { TIPO_USUARIO } from '../enum/tipo.usuario.enum';
 import { UsuarioServiceFindOne } from './usuario.service.findone';
 
@@ -15,13 +13,12 @@ import { UsuarioServiceFindOne } from './usuario.service.findone';
 export class UsuarioServiceRemove {
   constructor(
     private readonly dataSource: DataSource,
-    @InjectRepository(Usuario)
     private usuarioServiceFindOne: UsuarioServiceFindOne,
     private discipliaServiceCount: DisciplinaServiceCount,
     private alunoServiceCount: AlunoServiceCount,
   ) {}
 
-  async remove(idUsuario: number, tokenPayload: TokenPayloadDto): Promise<void> {
+  async remove(idUsuario: number): Promise<void> {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();

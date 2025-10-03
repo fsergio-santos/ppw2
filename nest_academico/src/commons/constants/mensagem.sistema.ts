@@ -1,6 +1,10 @@
+import { ALUNO } from '../../aluno/constants/aluno.constants';
+import { CIDADE } from '../../cidade/constants/cidade.constants';
 import { DISCIPLINA } from '../../disciplina/constants/disciplina.constants';
+import { MATRICULA } from '../../matricula/constants/alunodisciplina.constants';
+import { USUARIO } from '../../usuario/constants/usuario.constants';
 import { TipoOperacaoEntidade } from '../enum/tipo.operacao.enum';
-import { ALUNO, AUTH, CIDADE, DEPARTAMENTO, PROFESSOR, USUARIO } from './constants.sistema';
+import { AUTH, PROFESSOR } from './constants.sistema';
 
 type MensagensEntidade = {
   [key in TipoOperacaoEntidade]: string;
@@ -24,13 +28,13 @@ function capitalize(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
+function getEntityAlias(entityAlias: string): string {
+  return entityAlias;
+}
+
 function getEntityDisplayName(entityKey: string): string {
   const config = ENTITIES_CONFIG[entityKey];
   return config ? capitalize(config.singular) : capitalize(entityKey);
-}
-
-function getEntityAlias(entityAlias: string): string {
-  return entityAlias;
 }
 
 // Função para obter o nome plural da entidade
@@ -64,28 +68,30 @@ function gerarMensagensEntidade(entityKey: string): MensagensEntidade {
 }
 
 export const MENSAGEM = {
-  USUARIO: gerarMensagensEntidade(USUARIO),
+  USUARIO: gerarMensagensEntidade(USUARIO.ALIAS),
   PROFESSOR: gerarMensagensEntidade(PROFESSOR),
-  ALUNO: gerarMensagensEntidade(ALUNO),
-  CIDADE: gerarMensagensEntidade(CIDADE),
+  ALUNO: gerarMensagensEntidade(ALUNO.ALIAS),
+  CIDADE: gerarMensagensEntidade(CIDADE.ALIAS),
   AUTH: gerarMensagensEntidade(AUTH),
   DISCIPLINA: gerarMensagensEntidade(DISCIPLINA.ALIAS),
+  MATRICULA: gerarMensagensEntidade(MATRICULA.ALIAS),
 };
 
 export const SHOW_ENTITY = {
-  USUARIO: getEntityDisplayName(USUARIO),
+  USUARIO: getEntityDisplayName(USUARIO.ALIAS),
   PROFESSOR: getEntityDisplayName(PROFESSOR),
-  ALUNO: getEntityDisplayName(ALUNO),
-  CIDADE: getEntityDisplayName(CIDADE),
+  ALUNO: getEntityDisplayName(ALUNO.ALIAS),
+  CIDADE: getEntityDisplayName(CIDADE.ALIAS),
   AUTH: getEntityDisplayName(AUTH),
   DISCIPLINA: getEntityDisplayName(DISCIPLINA.ALIAS),
+  MATRICULA: getEntityDisplayName(MATRICULA.ALIAS),
 };
 
 export const ENTITY_ALIAS = {
-  USUARIO: getEntityAlias(USUARIO),
+  USUARIO: getEntityAlias(USUARIO.ALIAS),
   PROFESSOR: getEntityAlias(PROFESSOR),
-  ALUNO: getEntityAlias(ALUNO),
-  CIDADE: getEntityAlias(CIDADE),
+  ALUNO: getEntityAlias(ALUNO.ALIAS),
+  CIDADE: getEntityAlias(CIDADE.ALIAS),
   AUTH: getEntityAlias(AUTH),
   DISCIPLINA: getEntityAlias(DISCIPLINA.ALIAS),
 };

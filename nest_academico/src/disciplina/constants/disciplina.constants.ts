@@ -1,11 +1,13 @@
+import { criarMensagensOperacao } from '../../commons/constants/constants.entity';
+
 const ENTITY_NAME = 'Diciplina';
 
 export const DISCIPLINA = {
   ENTITY: ENTITY_NAME,
 
-  DATABASE_TABLE: 'DISCIPLINA',
+  TABLE: 'DISCIPLINA',
 
-  DATABASE_FIELD: {
+  TABLE_FIELD: {
     ID_DISCIPLINA: 'ID_DISCIPLINA',
     PERIODO: 'PERIODO',
     NOME_DISCIPLINA: 'NOME_DISCIPLINA',
@@ -43,37 +45,7 @@ export const DISCIPLINA = {
     IDPROFESSOR: `O código do Professor deve ser informado `,
   },
 
-  OPERACAO: {
-    CRIAR: {
-      ACAO: `Criar uma nova ${ENTITY_NAME} no sistema`,
-      SUCESSO: `A ${ENTITY_NAME} foi criada com sucesso`,
-      ERRO: `Falha na criação da ${ENTITY_NAME} no sistema`,
-      EXISTE: `A ${ENTITY_NAME} já está cadastrada no sistema`,
-    },
-    ATUALIZAR: {
-      ACAO: `Atualizar as informações de uma ${ENTITY_NAME} no sistema`,
-      SUCESSO: `A ${ENTITY_NAME} foi atualizada com sucesso`,
-      ERRO: `Falha na atualização da ${ENTITY_NAME} no sistema`,
-      NAO_LOCALIZADO: `O código da ${ENTITY_NAME} não foi localizada no sistema`,
-    },
-    POR_ID: {
-      ACAO: `Mostrar os dados de uma ${ENTITY_NAME} por um identificador único cadastrada no sistema`,
-      SUCESSO: `A ${ENTITY_NAME} foi localizada com sucesso no sistema `,
-      ERRO: `A ${ENTITY_NAME} não foi localizada no sistema `,
-      NAO_LOCALIZADO: `O código da ${ENTITY_NAME} não foi localizada no sistema`,
-    },
-    EXCLUIR: {
-      ACAO: `Exclui os dados de uma ${ENTITY_NAME} por um identificador único cadastrada no sistema`,
-      SUCESSO: `${ENTITY_NAME} foi excluída com sucesso no sistema`,
-      ERRO: `Falha na exclusão da ${ENTITY_NAME} no sistema `,
-      NAO_LOCALIZADO: `O código da ${ENTITY_NAME} não foi localizada no sistema`,
-    },
-    LISTAR: {
-      ACAO: `Listagem dos dados das ${ENTITY_NAME}s cadastradas no sistema`,
-      SUCESSO: `Consulta das ${ENTITY_NAME}s realizada com sucesso no sistema `,
-      ERRO: `Falha na consulta das ${ENTITY_NAME}s no sistema `,
-    },
-  },
+  OPERACAO: criarMensagensOperacao(ENTITY_NAME),
 };
 
 export const fieldsDisciplina = Object.values(DISCIPLINA.FIELDS);

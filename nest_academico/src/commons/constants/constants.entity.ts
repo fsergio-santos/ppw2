@@ -1,7 +1,5 @@
-import pluralize from 'pluralize';
-
 export function criarMensagensOperacao(ENTITY_NAME: string) {
-  const ENTITY_NAME_PLURAL = pluralize(ENTITY_NAME);
+  //const ENTITY_NAME_PLURAL = pluralize(ENTITY_NAME);
 
   return {
     CRIAR: {
@@ -29,9 +27,9 @@ export function criarMensagensOperacao(ENTITY_NAME: string) {
       NAO_LOCALIZADO: `O código informado do cadastro de ${ENTITY_NAME} não foi localizado no sistema`,
     },
     LISTAR: {
-      ACAO: `Listagem dos cadastros de ${ENTITY_NAME_PLURAL} existentes no sistema`,
-      SUCESSO: `A consulta dos cadastros de ${ENTITY_NAME_PLURAL} foi realizada com sucesso no sistema`,
-      ERRO: `Falha na consulta dos cadastros de ${ENTITY_NAME_PLURAL} no sistema`,
+      ACAO: `Listagem dos cadastros de ${ENTITY_NAME}s existentes no sistema`,
+      SUCESSO: `A consulta dos cadastros de ${ENTITY_NAME}s foi realizada com sucesso no sistema`,
+      ERRO: `Falha na consulta dos cadastros de ${ENTITY_NAME}s no sistema`,
     },
   };
 }

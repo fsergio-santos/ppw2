@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { MATRICULA } from 'src/matricula/constants/alunodisciplina.constants';
 
-export class AlunoDisciplinaResponse {
+export class MatriculaResponse {
   @ApiProperty({ description: MATRICULA.SWAGGER.ALUNO_ID, example: '1' })
   @Expose()
   alunoId: number = 0;

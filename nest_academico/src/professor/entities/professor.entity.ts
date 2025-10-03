@@ -3,14 +3,16 @@ import { BaseEntity } from 'src/commons/entity/base.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Disciplina } from '../../disciplina/entities/disciplina.entity';
+import { USUARIO } from '../../usuario/constants/usuario.constants';
+import { PROFESSOR } from '../constants/professor.constants';
 
-@Entity('PROFESSOR')
+@Entity(PROFESSOR.TABLE)
 export class Professor extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'ID_PROFESSOR', type: 'number' })
   idProfessor?: number;
 
   @Column({
-    name: 'COD_PROFESSOR',
+    name: PROFESSOR.TABLE_FIELD.COD_PROFESSOR,
     type: 'varchar2',
     length: 20,
     nullable: false,
@@ -18,7 +20,7 @@ export class Professor extends BaseEntity {
   codProfessor: string = '';
 
   @Column({
-    name: 'NOME_PROFESSOR',
+    name: PROFESSOR.TABLE_FIELD.NOME_PROFESSOR,
     type: 'varchar2',
     length: 100,
     nullable: false,
@@ -28,7 +30,7 @@ export class Professor extends BaseEntity {
   @OneToOne(() => Usuario, (usuario) => usuario.professor, {
     nullable: false,
   })
-  @JoinColumn({ name: 'ID_USUARIO', referencedColumnName: 'idUsuario' })
+  @JoinColumn({ name: USUARIO.TABLE_FIELD.ID_USUARIO, referencedColumnName: USUARIO.FIELDS.ID })
   usuario!: Usuario | null;
 
   @Exclude()

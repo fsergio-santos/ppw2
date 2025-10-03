@@ -68,7 +68,7 @@ export class Usuario extends BaseEntity {
     joinColumn: { name: 'USUARIO_ID', referencedColumnName: 'idUsuario' },
     inverseJoinColumn: { name: 'ROLE_ID', referencedColumnName: 'idRole' },
   })
-  roles!: Role[] | null;
+  roles!: Role[];
 
   constructor(data: Partial<Usuario> = {}) {
     super();

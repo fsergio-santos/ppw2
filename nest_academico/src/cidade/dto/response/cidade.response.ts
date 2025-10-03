@@ -11,7 +11,7 @@ export class CidadeResponse {
   @Expose()
   codCidade?: string = '';
 
-  @ApiProperty({ description: CIDADE.SWAGGER.NOME, example: 'Antônio da Silva' })
+  @ApiProperty({ description: CIDADE.SWAGGER.NOME, example: 'Birigui' })
   @Expose()
   nomeCidade?: string = '';
 

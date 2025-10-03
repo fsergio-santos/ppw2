@@ -24,17 +24,11 @@ export class UsuarioServiceCreate {
     private readonly hashingService: HashingService,
   ) {}
 
-  async create(
-    usuarioRequest: UsuarioRequest,
-  ): Promise<UsuarioResponse | null> {
+  async create(usuarioRequest: UsuarioRequest): Promise<UsuarioResponse | null> {
     await this.validarEmailUnico(usuarioRequest.email);
-    const cidadeExistente = await this.cidadeService.findById(
-      usuarioRequest.idCidade,
-    );
+    const cidadeExistente = await this.cidadeService.findById(usuarioRequest.idCidade);
     if (!cidadeExistente) {
-      throw new EntityNotFoundException(
-        `${MENSAGENS_GENERICAS.NAO_ENCONTRADO} - ${usuarioRequest.idCidade}`,
-      );
+      throw new EntityNotFoundException(`${MENSAGENS_GENERICAS.NAO_ENCONTRADO} - ${usuarioRequest.idCidade}`);
     }
 
     const queryRunner = this.dataSource.createQueryRunner();
@@ -47,8 +41,7 @@ export class UsuarioServiceCreate {
       usuario.senha = await this.hashingService.hash(usuario.senha);
 
       if (usuario.tipo === TIPO_USUARIO.PROFESSOR) {
-        const professor =
-          this.professorService.createProfessorInstance(usuarioRequest);
+        const professor = this.professorService.createProfessorInstance(usuarioRequest);
         usuario.professor = professor; // Associa a instância
       } else {
         const aluno = this.alunoService.createAlunoInstance(usuarioRequest);
@@ -72,12 +65,9 @@ export class UsuarioServiceCreate {
   }
 
   private async validarEmailUnico(email: string): Promise<void> {
-    const usuarioExistente =
-      await this.usuarioServiceFindEmail.findByEmail(email);
+    const usuarioExistente = await this.usuarioServiceFindEmail.findByEmail(email);
     if (usuarioExistente) {
-      throw new EmailException(
-        `${MENSAGENS_GENERICAS.EMAIL_CADASTRADO} -  ${email} `,
-      );
+      throw new EmailException(`${MENSAGENS_GENERICAS.EMAIL_CADASTRADO} -  ${email} `);
     }
   }
 }

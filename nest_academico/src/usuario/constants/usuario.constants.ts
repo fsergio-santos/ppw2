@@ -1,3 +1,4 @@
+import { ALUNO } from '../../aluno/constants/aluno.constants';
 import { criarMensagensOperacao } from '../../commons/constants/constants.entity';
 
 const ENTITY_NAME = 'USUARIO';
@@ -37,6 +38,10 @@ export const USUARIO = {
     IDPROFESSOR: 'idProfessor',
     NOMEPROFESSOR: 'nomeProfessor',
     CODPROFESSOR: 'codProfessor',
+  },
+
+  TO_ONE: {
+    TO_ALUNO: ALUNO.ALIAS,
   },
 
   SWAGGER: {

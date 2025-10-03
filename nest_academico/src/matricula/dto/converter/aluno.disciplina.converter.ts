@@ -1,21 +1,21 @@
 import { plainToInstance } from 'class-transformer';
-import { AlunoDisciplina } from '../../entity/aluno.disciplina.entity';
-import { AlunoDisciplinaRequest } from '../request/aluno.disciplina.request';
-import { AlunoDisciplinaResponse } from '../response/aluno.disciplina.response';
+import { Matricula } from '../../entity/aluno.disciplina.entity';
+import { MatriculaRequest } from '../request/aluno.disciplina.request';
+import { MatriculaResponse } from '../response/aluno.disciplina.response';
 
-export class ConverterAlunoDisciplina {
-  public static toAlunoDisciplina(request: AlunoDisciplinaRequest): AlunoDisciplina {
-    const alunoDisciplina = new AlunoDisciplina();
+export class ConverterMatricula {
+  public static toMatricula(request: MatriculaRequest): Matricula {
+    const alunoDisciplina = new Matricula();
     alunoDisciplina.alunoId = request.alunoId;
     alunoDisciplina.disciplinaId = request.disciplinaId;
     return alunoDisciplina;
   }
 
-  public static toAlunoDisciplinaResponse(alunoDisciplina: AlunoDisciplina): AlunoDisciplinaResponse {
-    return plainToInstance(AlunoDisciplinaResponse, alunoDisciplina, { excludeExtraneousValues: true });
+  public static toMatriculaResponse(alunoDisciplina: Matricula): MatriculaResponse {
+    return plainToInstance(MatriculaResponse, alunoDisciplina, { excludeExtraneousValues: true });
   }
 
-  public static toAlunoDisciplinaResponseList(alunoDisciplina: AlunoDisciplina[]): AlunoDisciplinaResponse[] {
-    return plainToInstance(AlunoDisciplinaResponse, alunoDisciplina, { excludeExtraneousValues: true });
+  public static toListMatriculaResponse(alunoDisciplina: Matricula[]): MatriculaResponse[] {
+    return plainToInstance(MatriculaResponse, alunoDisciplina, { excludeExtraneousValues: true });
   }
 }

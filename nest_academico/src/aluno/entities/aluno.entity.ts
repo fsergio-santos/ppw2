@@ -3,9 +3,8 @@ import { BaseEntity } from 'src/commons/entity/base.entity';
 import { Usuario } from 'src/usuario/entities/usuario.entity';
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Disciplina } from '../../disciplina/entities/disciplina.entity';
-import { ALUNO } from '../constants/aluno.constants';
 import { USUARIO } from '../../usuario/constants/usuario.constants';
-
+import { ALUNO } from '../constants/aluno.constants';
 
 @Entity(ALUNO.TABLE)
 export class Aluno extends BaseEntity {
@@ -29,7 +28,7 @@ export class Aluno extends BaseEntity {
   @OneToOne(() => Usuario, (usuario) => usuario.aluno, {
     nullable: false,
   })
-  @JoinColumn({ name: USUARIO.TABLE_FIELD.ID_USUARIO, referencedColumnName: ALUNO.FIELDS.ID })
+  @JoinColumn({ name: USUARIO.TABLE_FIELD.ID_USUARIO, referencedColumnName: USUARIO.FIELDS.ID })
   usuario!: Usuario | null;
 
   @Exclude()

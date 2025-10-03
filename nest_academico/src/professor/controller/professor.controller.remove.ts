@@ -3,11 +3,12 @@ import { MensagemSistema } from 'src/commons/response/mensagem.sistema';
 
 import { Request } from 'express';
 
-import { ApiOperation, ApiParam, ApiProduces, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { MENSAGEM, SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
+import { ApiTags } from '@nestjs/swagger';
+import { SHOW_ENTITY } from 'src/commons/constants/mensagem.sistema';
 import { ROTA } from 'src/commons/constants/url.sistema';
 import { Result } from 'src/commons/response/mensagem';
-import { MENSAGENS_GENERICAS } from '../../commons/enum/mensagem.generica.enum';
+import { ApiDeleteDoc } from '../../commons/decorators/swagger.decorators';
+import { PROFESSOR } from '../constants/professor.constants';
 import { ProfessorServiceRemove } from '../service/professor.service.remove';
 
 @ApiTags(SHOW_ENTITY.PROFESSOR)
@@ -16,20 +17,9 @@ export class ProfessorControllerRemove {
   constructor(private readonly professorService: ProfessorServiceRemove) {}
 
   @Delete(ROTA.PROFESSOR.EXCLUIR)
-  @ApiOperation({ summary: MENSAGEM.PROFESSOR.OPERACAO_POR_ID })
-  @ApiParam({
-    name: 'id',
-    description: MENSAGENS_GENERICAS.IDENTIFICADOR_UNICO,
-    required: true,
-    type: 'número',
-  })
-  @ApiResponse({
-    status: HttpStatus.OK,
-    description: MENSAGEM.PROFESSOR.EXCLUIR,
-  })
-  @ApiProduces(MENSAGENS_GENERICAS.JSON_APPLICATION)
+  @ApiDeleteDoc(PROFESSOR.OPERACAO.EXCLUIR)
   async remove(@Param('id', ParseIntPipe) id: number, @Req() req: Request): Promise<Result<void>> {
     await this.professorService.remove(id, true);
-    return MensagemSistema.showMensagem(HttpStatus.OK, MENSAGEM.PROFESSOR.EXCLUIR, null, req.path, null);
+    return MensagemSistema.showMensagem(HttpStatus.OK, PROFESSOR.OPERACAO.EXCLUIR.SUCESSO, null, req.path, null);
   }
 }

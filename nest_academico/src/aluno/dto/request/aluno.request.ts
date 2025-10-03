@@ -1,34 +1,35 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsInt, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsInt, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import { USUARIO } from '../../../usuario/constants/usuario.constants';
+import { ALUNO } from '../../constants/aluno.constants';
 
 export class AlunoRequest {
   @Type(() => Number)
   @IsOptional()
+  @ApiProperty({ description: ALUNO.SWAGGER.ID, example: '1' })
   idAluno?: number = 0;
 
-  @ApiProperty({ description: 'Código da identificação do aluno ', example: 'COD120' })
-  @IsNotEmpty({ message: 'O código do aluno deve ser informado ' })
-  @IsString()
-  @MaxLength(20, {
-    message: 'O tamanho máximo é de 20 caracteres para o código do aluno',
-  })
+  @ApiProperty({ description: ALUNO.SWAGGER.CODIGO, example: 'COD120' })
+  @IsNotEmpty({ message: ALUNO.INPUT_ERROR.CODIGO.VALID })
+  @IsString({ message: ALUNO.INPUT_ERROR.CODIGO.STRING })
+  @MaxLength(20, { message: ALUNO.INPUT_ERROR.CODIGO.MAX_LEN })
+  @MinLength(6, { message: ALUNO.INPUT_ERROR.CODIGO.MIN_LEN })
   codAluno: string = '';
 
-  @ApiProperty({ description: 'Código da identificação do aluno ', example: 'Luis Carlos da Silva' })
-  @MaxLength(100, {
-    message: 'O tamanho máximo é de 100 caracteres para o nome do aluno',
-  })
-  @IsNotEmpty({ message: 'O nome do do aluno deve ser informado ' })
-  @IsString()
+  @ApiProperty({ description: ALUNO.SWAGGER.NOME, example: 'Luis Carlos da Silva' })
+  @MaxLength(100, { message: ALUNO.INPUT_ERROR.NOME.MAX_LEN })
+  @MinLength(6, { message: ALUNO.INPUT_ERROR.NOME.MIN_LEN })
+  @IsNotEmpty({ message: ALUNO.INPUT_ERROR.NOME.BLANK })
+  @IsString({ message: ALUNO.INPUT_ERROR.NOME.STRING })
   nomeAluno: string = '';
 
-  @ApiProperty({ description: 'Idade do aluno ', example: '20' })
+  @ApiProperty({ description: ALUNO.SWAGGER.IDADE, example: '20' })
   @IsInt({ message: 'informe a idade do aluno' })
   idade: number = 0;
 
-  @ApiProperty({ description: 'Código do usuário ', example: '1' })
-  @IsInt({ message: 'informe o código do usuário' })
+  @ApiProperty({ description: USUARIO.SWAGGER.ID, example: '1' })
+  @IsInt({ message: ALUNO.INPUT_ERROR.IDADE.INT })
   idUsuario?: number = 0;
 
   constructor(data: Partial<AlunoRequest> = {}) {

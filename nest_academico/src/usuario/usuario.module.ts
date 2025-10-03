@@ -7,6 +7,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { CidadeModule } from 'src/cidade/cidade.module';
 import { Cidade } from 'src/cidade/entities/cidade.entity';
 import { ProfessorModule } from 'src/professor/professor.module';
+import { DisciplinaModule } from '../disciplina/disciplina.module';
 import { UsuarioControllerCreate } from './controller/usuario.controller.create';
 import { UsuarioControllerFindAll } from './controller/usuario.controller.findall';
 import { UsuarioControllerFindOne } from './controller/usuario.controller.findone';
@@ -41,6 +42,7 @@ const usuarioServices = [
     TypeOrmModule.forFeature([Usuario, Cidade]),
     AlunoModule,
     ProfessorModule,
+    DisciplinaModule,
     forwardRef(() => CidadeModule),
     forwardRef(() => AuthModule),
   ],

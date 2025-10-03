@@ -1,33 +1,30 @@
 import { criarMensagensOperacao } from '../../commons/constants/constants.entity';
 
-const ENTITY_NAME = 'Aluno';
+const ENTITY_NAME = 'Diciplina';
 
-export const ALUNO = {
+export const PROFESSOR = {
   ENTITY: ENTITY_NAME,
 
-  TABLE: 'ALUNO',
+  TABLE: 'PROFESSOR',
 
   TABLE_FIELD: {
-    ID_ALUNO: 'ID_ALUNO',
-    COD_ALUNO: 'COD_ALUNO',
-    NOME_ALUNO: 'NOME_ALUNO',
-    IDADE: 'IDADE',
+    ID_PROFESSOR: 'ID_PROFESSOR',
+    COD_PROFESSOR: 'COD_PROFESSOR',
+    NOME_PROFESSOR: 'NOME_PROFESSOR',
   },
 
-  ALIAS: 'Aluno',
+  ALIAS: 'disciplina',
 
   FIELDS: {
-    ID: 'idAluno',
-    CODIGO: 'codAluno',
-    NOME: 'nomeAluno',
-    IDADE: 'idade',
+    ID: 'idProfessor',
+    CODIGO: 'codProfessor',
+    NOME: 'nomeProfessor',
   },
 
   SWAGGER: {
-    ID: `Código do ${ENTITY_NAME} de identificação única `,
-    CODIGO: `Código do ${ENTITY_NAME}`,
-    NOME: `Nome do ${ENTITY_NAME}`,
-    IDADE: `Idade do ${ENTITY_NAME}`,
+    ID: `Código de ${ENTITY_NAME} de identificação única `,
+    CODIGO: `Código de ${ENTITY_NAME}`,
+    NOME: `Nome de ${ENTITY_NAME}`,
   },
 
   INPUT_ERROR: {
@@ -49,14 +46,9 @@ export const ALUNO = {
       MIN_LEN: `O nome do ${ENTITY_NAME} deve conter no mínimo 6 caracteres`,
       STRING: `O nome do ${ENTITY_NAME} dever ser um texto `,
     },
-    IDADE: {
-      BLANK: `A idade do ${ENTITY_NAME} deve ser informada`,
-      VALID: `Informe uma idade válida para o ${ENTITY_NAME}`,
-      INT: `A indade do ${ENTITY_NAME} deve ser um número inteiro`,
-    },
   },
 
   OPERACAO: criarMensagensOperacao(ENTITY_NAME),
 };
 
-export const fieldsAluno = Object.values(ALUNO.FIELDS);
+export const fieldsProfessor = Object.values(PROFESSOR.FIELDS);
